@@ -1,0 +1,142 @@
+DASHBOARD DE TRANSITO - ALTERACOES E ADMINISTRACAO
+
+1. O QUE FOI ALTERADO
+
+O dashboard original foi mantido visualmente, mas foi separado na estrutura do Ruby on Rails:
+
+- app/models/equipamento.rb
+  Representa um equipamento salvo no banco de dados.
+
+- db/migrate/20260930160000_create_equipamentos.rb
+  Criou a tabela equipamentos no PostgreSQL.
+
+- db/seeds.rb
+  Contem os dados que antes estavam dentro do HTML/JavaScript.
+  Foram carregados 283 equipamentos com latitude e longitude validas.
+
+- app/controllers/dashboard_controller.rb
+  Busca os equipamentos com coordenadas no banco e envia os dados para a pagina.
+
+- config/routes.rb
+  A rota principal (/) abre o dashboard.
+
+- app/views/dashboard/index.html.erb
+  Contem a estrutura HTML da pagina e recebe os dados do banco.
+
+- app/assets/stylesheets/dashboard.css
+  Contem todo o estilo visual original: sidebar, cards, filtros, mapa, popup e responsividade.
+
+- public/mapa.js
+  Contem o JavaScript do Leaflet: mapa, marcadores, agrupamentos, busca, filtros, lista e popups.
+
+Nenhum commit, push ou upload para Git foi feito.
+
+2. COMO A PAGINA FUNCIONA
+
+Quando a pagina e aberta:
+
+1. O controller busca os equipamentos no PostgreSQL.
+2. A view envia esses dados para o JavaScript.
+3. O mapa.js le latitude, longitude, tipo, endereco e identificacao.
+4. O Leaflet cria automaticamente:
+   - o marcador no mapa;
+   - o popup com dados e link para Google Maps;
+   - o card na lista lateral;
+   - a contagem de cada categoria;
+   - a participacao na busca e nos filtros.
+
+Assim, para os tipos que ja existem, nao e necessario editar HTML, CSS ou JS a cada novo equipamento.
+
+Tipos ja configurados:
+- Lombada Eletronica
+- Equipamento Misto
+- Camera Dome
+- Rede Semaforica
+
+3. CADASTRAR UM NOVO EQUIPAMENTO
+
+Abra o terminal no projeto e execute:
+
+  bin/rails console
+
+Exemplo de uma nova camera:
+
+  Equipamento.create!(
+    identificacao: "DOME-51",
+    endereco: "Av. Exemplo, Recife/PE",
+    latitude: -8.0476,
+    longitude: -34.8770,
+    tipo: "Câmera Dome"
+  )
+
+Depois, atualize a pagina do dashboard. A camera aparecera automaticamente no mapa e na lista.
+
+4. CONSULTAR, EDITAR E EXCLUIR
+
+No console Rails, localize o registro:
+
+  camera = Equipamento.find_by!(identificacao: "DOME-51")
+
+Para conferir os dados antes de alterar:
+
+  camera.attributes
+
+Para editar:
+
+  camera.update!(
+    endereco: "Novo endereco",
+    latitude: -8.0500,
+    longitude: -34.8800
+  )
+
+Para excluir:
+
+  camera.destroy!
+
+Depois de qualquer alteracao, atualize a pagina do dashboard.
+
+5. QUANDO PRECISA DE MIGRATION
+
+Nao precisa criar migration para cadastrar, editar ou excluir equipamentos.
+
+Migration so e necessaria quando a estrutura da tabela mudar, por exemplo:
+- criar uma coluna status;
+- criar uma coluna data_instalacao;
+- criar uma nova tabela;
+- alterar o tipo de uma coluna existente.
+
+Exemplo: adicionar uma coluna status:
+
+  bin/rails generate migration AddStatusToEquipamentos status:string
+  bin/rails db:migrate
+
+6. SOBRE OS TIPOS DE EQUIPAMENTO
+
+Para cadastrar outra camera, use tipo: "Câmera Dome". Ela recebera automaticamente a cor, o icone, o filtro e a contagem ja existentes.
+
+Se for criado um tipo completamente novo, por exemplo "Radar Portatil", ele aparecera no mapa com o marcador padrao, mas para ter cor, icone e filtro proprios sera necessario adicionar esse tipo ao objeto config em public/mapa.js.
+
+7. SOBRE O SEED
+
+O seed serve para a carga inicial do banco:
+
+  bin/rails db:seed
+
+O seed atual usa create!, portanto nao deve ser executado repetidamente no mesmo banco, pois os equipamentos poderao ser duplicados.
+
+Para novas inclusoes do dia a dia, use o console Rails. Para muitas inclusoes, o proximo passo recomendado e criar uma tela administrativa para cadastrar, editar e excluir equipamentos sem precisar usar terminal.
+
+8. COMANDOS INICIAIS DO PROJETO
+
+Para preparar um banco novo:
+
+  bin/rails db:migrate
+  bin/rails db:seed
+
+Para iniciar o sistema:
+
+  bin/rails server
+
+Acesse:
+
+  http://localhost:3000
