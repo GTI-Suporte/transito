@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "consultas/index"
   root "dashboard#index"
   get "dashboard/index"
 
@@ -21,7 +22,8 @@ Rails.application.routes.draw do
     post 'editais/upload', to: 'editais#upload'
     get 'infracoes/:placa', to: 'infracoes#consulta'
   end
-
+  # config/routes.rb
+  get 'consulta', to: 'consultas#index'
   # Health check do Rails
   get "up" => "rails/health#show", as: :rails_health_check
 end

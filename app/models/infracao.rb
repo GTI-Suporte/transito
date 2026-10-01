@@ -1,5 +1,7 @@
 # app/models/infracao.rb
 class Infracao < ApplicationRecord
+  self.table_name = 'infracoes'
+  
   belongs_to :edital
 
   validates :placa, presence: true

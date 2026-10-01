@@ -1,42 +1,55 @@
-
+# app/services/extrator_pdf_service.rb
 class ExtratorPdfService
   def initialize(edital)
     @edital = edital
   end
 
   def call
-    # Abre o ficheiro PDF temporariamente a partir do Active Storage
     @edital.arquivo_pdf.open do |ficheiro_local|
       reader = PDF::Reader.new(ficheiro_local.path)
-
-      # Lê o texto de cada página e envia para o método de extração
-      reader.pages.each do |page|
-        texto = page.text
-        extrair_infracoes(texto)
-      end
+      reader.pages.each { |page| extrair_infracoes(page.text) }
     end
   end
 
   private
 
   def extrair_infracoes(texto)
-    # Regex genérica para encontrar Placa (Mercosul ou Antiga), Auto de Infração e Código.
-    # Exemplo: DVR7C19 ... DD12324827 ... 5347-0
-    regex = /(?<placa>[A-Z]{3}[0-9][A-Z0-9][0-9]{2}).*?(?<auto>[A-Z]{2}\d{8}).*?(?<codigo>\d{4}-\d)/i
-    
-    texto.scan(regex) do |match|
-      # match[0] = Placa, match[1] = Auto, match[2] = Código
-      Infracao.create!(
-        edital: @edital,
-        placa: match[0],
-        auto_infracao: match[1],
-        codigo_infracao: match[2],
-        # Valores estáticos provisórios para garantir que o registo passa nas validações.
-        # Depois afinaremos a Regex para capturar também a data e o valor exatos.
-        data_infracao: Date.today,
-        valor: 130.16,
-        ano_notificacao: Date.today.year
-      )
+    if @edital.tipo == 'penalidade'
+      # Captura o Amparo Legal: (?<amparo>\(.*?\))
+      regex_penalidade = /(?<placa>[A-Z]{3}[0-9][A-Z0-9][0-9]{2})\/[A-Z]{2},\s*(?<data>\d{2}\/\d{2}\/\d{4}),\s*(?<auto>[A-Z]{2}\d+),\s*(?<codigo>\d{4}-\d)(?<amparo>\(.*?\))(?:.*?,\s*R\$\s*(?<valor>\d{1,3}(?:\.\d{3})*,\d{2}))?/i
+      
+      texto.scan(regex_penalidade) do |match|
+        # match: [placa, data, auto, codigo, amparo, valor]
+        salvar_registro(match[0], match[1], match[2], match[3], match[4], match[5])
+      end
+    else
+      regex_autuacao = /(?<placa>[A-Z]{3}[0-9][A-Z0-9][0-9]{2})\/[A-Z]{2},\s*(?<data>\d{2}\/\d{2}\/\d{4}),\s*(?<auto>[A-Z]{2}\d+),\s*(?<codigo>\d{4}-\d)(?<amparo>\(.*?\))/i
+      
+      texto.scan(regex_autuacao) do |match|
+        # match: [placa, data, auto, codigo, amparo]
+        salvar_registro(match[0], match[1], match[2], match[3], match[4], nil)
+      end
     end
+  end
+
+  def salvar_registro(placa, data_str, auto, codigo, amparo, valor_str)
+    data_formatada = Date.strptime(data_str, '%d/%m/%Y') rescue nil
+    return unless data_formatada
+
+    valor_formatado = nil
+    if valor_str.present?
+      valor_formatado = valor_str.tr('.', '').tr(',', '.').to_f
+    end
+
+    Infracao.create!(
+      edital: @edital,
+      placa: placa,
+      data_infracao: data_formatada,
+      auto_infracao: auto,
+      codigo_infracao: codigo,
+      amparo_legal: amparo, # Salvando o Artigo!
+      valor: valor_formatado,
+      ano_notificacao: data_formatada.year
+    )
   end
 end

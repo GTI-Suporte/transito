@@ -1,0 +1,105 @@
+<div class="fade-in max-w-3xl mx-auto block">
+  <div class="mb-8 text-center">
+    <h2 class="text-3xl font-bold text-slate-800 mb-2">Consulta de Editais de Trânsito</h2>
+    <p class="text-slate-600">Verifique se o seu veículo possui notificações publicadas no Diário Oficial.</p>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-8 mb-8 text-center">
+    <%= form_with url: "/consulta", method: :get, local: true, class: "max-w-md mx-auto space-y-6" do |f| %>
+      <div>
+        <%= f.label :placa, "Digite a Placa do Veículo", class: "block text-sm font-bold text-slate-700 mb-2 text-left" %>
+        <div class="relative flex shadow-sm rounded-lg">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+              <i class="ph ph-car text-slate-400 text-2xl"></i>
+          </div>
+          
+          <%= f.text_field :placa, value: @placa, placeholder: "Ex: DVR7C19", maxlength: 7, class: "w-full pl-12 pr-4 py-4 text-xl bg-slate-50 border border-slate-200 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#003366] transition uppercase font-bold text-slate-700 placeholder:normal-case placeholder:font-normal placeholder:text-base", required: true %>
+          
+          <%= button_tag type: 'submit', class: "bg-[#003366] hover:bg-blue-800 text-white px-6 rounded-r-lg font-semibold transition-colors flex items-center gap-2 cursor-pointer" do %>
+            <i class="ph ph-magnifying-glass text-xl"></i> Consultar
+          <% end %>
+        </div>
+        <p class="text-xs text-slate-400 mt-2 text-left">O sistema buscará na base de editais já processados.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @busca_realizada %>
+    <% if @infracoes.any? %>
+      <div class="space-y-6 fade-in">
+        <% @infracoes.each do |inf| %>
+          <% tipo = inf.edital.tipo.upcase %>
+          <% badge_class = tipo == 'PENALIDADE' ? 'bg-red-600' : 'bg-yellow-500' %>
+          <% icon_color = tipo == 'PENALIDADE' ? 'text-red-600' : 'text-yellow-500' %>
+          
+          <div class="bg-white rounded-2xl shadow-xl border-t-4 border-t-slate-800 overflow-hidden relative">
+            <div class="absolute top-0 right-8 <%= badge_class %> text-white text-xs font-bold px-4 py-1 rounded-b-lg uppercase tracking-wide">
+              <%= tipo %>
+            </div>
+            <div class="p-8">
+              
+              <!-- Cabeçalho com Ícone, Info e Botão de Download -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                  <i class="ph-fill ph-warning-circle <%= icon_color %> text-3xl"></i>
+                  <div>
+                      <h3 class="text-xl font-bold text-slate-800">Infração Encontrada no Edital</h3>
+                      <!-- A linha do ficheiro foi removida daqui -->
+                      <p class="text-sm text-slate-500">Publicado no Diário Oficial em <span class="font-semibold text-slate-700"><%= inf.edital.data_publicacao&.strftime("%d/%m/%Y") %></span></p>
+                  </div>
+                </div>
+
+                <% if inf.edital.arquivo_pdf.attached? %>
+                  <%= link_to rails_blob_path(inf.edital.arquivo_pdf, disposition: "attachment"), class: "flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-[#003366] px-4 py-2 rounded-lg text-sm font-bold transition-colors whitespace-nowrap" do %>
+                    <i class="ph ph-download-simple text-lg"></i> Baixar Edital
+                  <% end %>
+                <% end %>
+              </div>                  
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Veículo</p>
+                      <p class="text-lg font-bold text-slate-800"><%= inf.placa %></p>
+                  </div>
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Valor</p>
+                      <p class="text-lg font-bold text-red-600">
+                        <% if inf.valor.present? %>
+                          R$ <%= number_to_currency(inf.valor, unit: "", separator: ",", delimiter: ".") %>
+                        <% else %>
+                          <span class="text-slate-400 text-sm font-normal">Aguardando Penalidade</span>
+                        <% end %>
+                      </p>
+                  </div>
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Data Infração</p>
+                      <p class="text-lg font-semibold text-slate-800"><%= inf.data_infracao&.strftime("%d/%m/%Y") %></p>
+                  </div>
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Ano Notificação</p>
+                      <p class="text-lg font-semibold text-slate-800"><%= inf.ano_notificacao %></p>
+                  </div>
+              </div>
+
+              <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Nº Auto de Infração</p>
+                      <p class="text-base font-medium text-slate-800 font-mono"><%= inf.auto_infracao %></p>
+                  </div>
+                  <div>
+                      <p class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Código Infração (Amparo)</p>
+                      <p class="text-base font-medium text-slate-800"><%= inf.codigo_infracao %> <span class="text-slate-500 text-sm"><%= inf.amparo_legal %></span></p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="fade-in bg-green-50 border border-green-200 rounded-2xl p-8 text-center mt-8">
+        <i class="ph-fill ph-check-circle text-green-500 text-5xl mb-4"></i>
+        <h3 class="text-xl font-bold text-green-800 mb-2">Nada consta</h3>
+        <p class="text-green-700">Não foram encontradas notificações em editais para a placa informada.</p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

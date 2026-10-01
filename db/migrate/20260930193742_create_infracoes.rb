@@ -1,6 +1,6 @@
-class CreateInfracaos < ActiveRecord::Migration[8.1]
+class CreateInfracoes < ActiveRecord::Migration[8.1]
   def change
-    create_table :infracaos do |t|
+    create_table :infracoes do |t|
       t.references :edital, null: false, foreign_key: true
       t.string :placa
       t.date :data_infracao
@@ -11,6 +11,6 @@ class CreateInfracaos < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :infracaos, :placa
+    add_index :infracoes, :placa
   end
 end
