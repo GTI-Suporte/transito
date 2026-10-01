@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_01_151913) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_01_190142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,7 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_151913) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "infracaos", force: :cascade do |t|
+  create_table "infracoes", force: :cascade do |t|
     t.bigint "edital_id", null: false
     t.string "placa"
     t.date "data_infracao"
@@ -72,8 +72,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_151913) do
     t.integer "ano_notificacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["edital_id"], name: "index_infracaos_on_edital_id"
-    t.index ["placa"], name: "index_infracaos_on_placa"
+    t.string "amparo_legal"
+    t.index ["edital_id"], name: "index_infracoes_on_edital_id"
+    t.index ["placa"], name: "index_infracoes_on_placa"
   end
 
   create_table "usuarios", force: :cascade do |t|
@@ -91,5 +92,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_151913) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "infracaos", "editals"
+  add_foreign_key "infracoes", "editals"
 end

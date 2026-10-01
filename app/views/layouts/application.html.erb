@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
-    <title><%= content_for(:title) || "Transito" %></title>
+    <title>DER-PE | Sistema de Transito</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Transito">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <!-- Tailwind CSS (CDN para garantir o estilo exato do mockup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="text-slate-800 antialiased min-h-screen flex flex-col">
+    <!-- Cabeçalho Oficial -->
+    <header class="bg-[#003366] text-white shadow-md relative z-10">
+        <div class="container mx-auto px-4 py-4 max-w-6xl flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#003366]">
+                    <i class="ph-fill ph-flag-banner text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">DER-PE</h1>
+                    <p class="text-xs text-blue-200 font-medium hidden sm:block">Departamento de Estradas de Rodagem de Pernambuco</p>
+                </div>
+            </div>
+        </div>
+        <div class="h-1 w-full bg-gradient-to-r from-green-500 via-yellow-400 to-red-500"></div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-10 max-w-6xl relative">
+      <%= yield %>
+    </main>
   </body>
 </html>
