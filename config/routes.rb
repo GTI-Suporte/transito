@@ -15,9 +15,11 @@ Rails.application.routes.draw do
     resources :equipamentos
   end
 
-  # API pública usada pelo dashboard
+  # API pública usada pelo dashboard e sistema de editais
   namespace :api do
     resources :equipamentos, only: [:index, :show]
+    post 'editais/upload', to: 'editais#upload'
+    get 'infracoes/:placa', to: 'infracoes#consulta'
   end
 
   # Health check do Rails
