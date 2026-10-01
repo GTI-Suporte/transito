@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  edital: one
+  placa: MyString
+  data_infracao: 2026-09-30
+  valor: 9.99
+  auto_infracao: MyString
+  codigo_infracao: MyString
+  ano_notificacao: 1
+
+two:
+  edital: two
+  placa: MyString
+  data_infracao: 2026-09-30
+  valor: 9.99
+  auto_infracao: MyString
+  codigo_infracao: MyString
+  ano_notificacao: 1
