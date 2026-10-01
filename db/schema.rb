@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_30_193940) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_01_151913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_193940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["arquivo_hash"], name: "index_editals_on_arquivo_hash", unique: true
+  end
+
+  create_table "equipamentos", force: :cascade do |t|
+    t.string "identificacao"
+    t.text "endereco"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "infracaos", force: :cascade do |t|

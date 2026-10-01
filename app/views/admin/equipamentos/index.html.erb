@@ -1,0 +1,87 @@
+<div style="padding: 30px; font-family: Arial, sans-serif;">
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <div>
+      <h1 style="margin: 0;">Equipamentos</h1>
+      <p style="color: #666;">Gerenciamento dos equipamentos de fiscalização</p>
+    </div>
+
+    <%= link_to "Novo equipamento",
+                new_admin_equipamento_path,
+                style: "background: #0f172a; color: white; padding: 10px 16px; border-radius: 8px; text-decoration: none;" %>
+  </div>
+
+  <% if notice %>
+    <div style="background: #dcfce7; color: #166534; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div style="background: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 15px;">
+    <strong><%= @equipamentos.count %></strong> equipamentos cadastrados
+  </div>
+
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background: white;">
+      <thead>
+        <tr style="background: #f1f5f9;">
+          <th style="padding: 12px; text-align: left;">Identificação</th>
+          <th style="padding: 12px; text-align: left;">Tipo</th>
+          <th style="padding: 12px; text-align: left;">Endereço</th>
+          <th style="padding: 12px; text-align: left;">Latitude</th>
+          <th style="padding: 12px; text-align: left;">Longitude</th>
+          <th style="padding: 12px; text-align: center;">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @equipamentos.each do |equipamento| %>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 12px;">
+              <%= equipamento.identificacao %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= equipamento.tipo %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= equipamento.endereco %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= equipamento.latitude %>
+            </td>
+
+            <td style="padding: 12px;">
+              <%= equipamento.longitude %>
+            </td>
+
+            <td style="padding: 12px; text-align: center; white-space: nowrap;">
+
+              <%= link_to "Editar",
+                          edit_admin_equipamento_path(equipamento),
+                          style: "margin-right: 10px; color: #2563eb;" %>
+
+              <%= button_to "Excluir",
+                            admin_equipamento_path(equipamento),
+                            method: :delete,
+                            data: {
+                              turbo_confirm: "Tem certeza que deseja excluir este equipamento?"
+                            },
+                            style: "border: none; background: none; color: #dc2626; cursor: pointer;" %>
+
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
