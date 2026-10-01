@@ -70,3 +70,5 @@ group :test do
 end
 
 gem "devise", "~> 5.0"
+
+gem "pdf-reader", "~> 2.16"
