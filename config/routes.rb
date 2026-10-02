@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  root "dashboard#index"
-  get "dashboard/index"
-
-  # Rota pública de consulta
+ 
   get "consulta", to: "consultas#index"
+  get "dashboard", to: "dashboard#index"
 
   # Login do administrador
   devise_for :usuarios,
