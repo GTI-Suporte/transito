@@ -1,4 +1,3 @@
-# app/services/extrator_pdf_service.rb
 class ExtratorPdfService
   def initialize(edital)
     @edital = edital
@@ -15,18 +14,13 @@ class ExtratorPdfService
 
   def extrair_infracoes(texto)
     if @edital.tipo == 'penalidade'
-      # Captura o Amparo Legal: (?<amparo>\(.*?\))
       regex_penalidade = /(?<placa>[A-Z]{3}[0-9][A-Z0-9][0-9]{2})\/[A-Z]{2},\s*(?<data>\d{2}\/\d{2}\/\d{4}),\s*(?<auto>[A-Z]{2}\d+),\s*(?<codigo>\d{4}-\d)(?<amparo>\(.*?\))(?:.*?,\s*R\$\s*(?<valor>\d{1,3}(?:\.\d{3})*,\d{2}))?/i
-      
       texto.scan(regex_penalidade) do |match|
-        # match: [placa, data, auto, codigo, amparo, valor]
         salvar_registro(match[0], match[1], match[2], match[3], match[4], match[5])
       end
     else
       regex_autuacao = /(?<placa>[A-Z]{3}[0-9][A-Z0-9][0-9]{2})\/[A-Z]{2},\s*(?<data>\d{2}\/\d{2}\/\d{4}),\s*(?<auto>[A-Z]{2}\d+),\s*(?<codigo>\d{4}-\d)(?<amparo>\(.*?\))/i
-      
       texto.scan(regex_autuacao) do |match|
-        # match: [placa, data, auto, codigo, amparo]
         salvar_registro(match[0], match[1], match[2], match[3], match[4], nil)
       end
     end
@@ -47,7 +41,7 @@ class ExtratorPdfService
       data_infracao: data_formatada,
       auto_infracao: auto,
       codigo_infracao: codigo,
-      amparo_legal: amparo, # Salvando o Artigo!
+      amparo_legal: amparo,
       valor: valor_formatado,
       ano_notificacao: data_formatada.year
     )
