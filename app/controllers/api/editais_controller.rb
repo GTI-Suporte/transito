@@ -10,7 +10,6 @@ class Api::EditaisController < ApplicationController
 
     tipo_edital = params[:tipo].presence || 'autuacao'
     
-    # Captura a data enviada na requisição (ou usa a data de hoje como fallback de segurança)
     data_informada = params[:data_publicacao].presence || Date.today
 
     hash_real_do_arquivo = Digest::SHA256.file(params[:file].tempfile).hexdigest
