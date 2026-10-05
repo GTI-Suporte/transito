@@ -1,87 +1,77 @@
-<div style="padding: 30px; font-family: Arial, sans-serif;">
-
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+<div class="max-w-6xl mx-auto">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
     <div>
-      <h1 style="margin: 0;">Equipamentos</h1>
-      <p style="color: #666;">Gerenciamento dos equipamentos de fiscalização</p>
+      <h1 class="text-2xl font-bold text-slate-800">Equipamentos</h1>
+      <p class="text-sm text-slate-500 mt-1">Gerenciamento dos equipamentos de fiscalização.</p>
     </div>
 
-    <%= link_to "Novo equipamento",
-                new_admin_equipamento_path,
-                style: "background: #0f172a; color: white; padding: 10px 16px; border-radius: 8px; text-decoration: none;" %>
+    <div class="flex flex-wrap gap-2">
+      <%= link_to "Ver mapa", root_path,
+          class: "px-4 py-2 rounded-lg border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition" %>
+
+      <%= link_to "Novo equipamento", new_admin_equipamento_path,
+          class: "px-4 py-2 rounded-lg bg-[#003366] text-white font-semibold text-sm hover:bg-blue-800 transition shadow" %>
+
+      <%= button_to "Sair", destroy_usuario_session_path,
+          method: :delete,
+          class: "px-4 py-2 rounded-lg bg-slate-100 text-slate-700 font-semibold text-sm hover:bg-slate-200 transition" %>
+    </div>
   </div>
 
   <% if notice %>
-    <div style="background: #dcfce7; color: #166534; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+    <div class="bg-green-50 text-green-700 border border-green-200 px-4 py-3 rounded-lg mb-5 text-sm">
       <%= notice %>
     </div>
   <% end %>
 
   <% if alert %>
-    <div style="background: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+    <div class="bg-red-50 text-red-700 border border-red-200 px-4 py-3 rounded-lg mb-5 text-sm">
       <%= alert %>
     </div>
   <% end %>
 
-  <div style="margin-bottom: 15px;">
-    <strong><%= @equipamentos.count %></strong> equipamentos cadastrados
-  </div>
+  <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+    <div class="px-5 py-4 border-b border-slate-200">
+      <strong class="text-slate-800"><%= @equipamentos.count %></strong>
+      <span class="text-sm text-slate-500">equipamentos cadastrados</span>
+    </div>
 
-  <div style="overflow-x: auto;">
-    <table style="width: 100%; border-collapse: collapse; background: white;">
-      <thead>
-        <tr style="background: #f1f5f9;">
-          <th style="padding: 12px; text-align: left;">Identificação</th>
-          <th style="padding: 12px; text-align: left;">Tipo</th>
-          <th style="padding: 12px; text-align: left;">Endereço</th>
-          <th style="padding: 12px; text-align: left;">Latitude</th>
-          <th style="padding: 12px; text-align: left;">Longitude</th>
-          <th style="padding: 12px; text-align: center;">Ações</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @equipamentos.each do |equipamento| %>
-          <tr style="border-bottom: 1px solid #e2e8f0;">
-            <td style="padding: 12px;">
-              <%= equipamento.identificacao %>
-            </td>
-
-            <td style="padding: 12px;">
-              <%= equipamento.tipo %>
-            </td>
-
-            <td style="padding: 12px;">
-              <%= equipamento.endereco %>
-            </td>
-
-            <td style="padding: 12px;">
-              <%= equipamento.latitude %>
-            </td>
-
-            <td style="padding: 12px;">
-              <%= equipamento.longitude %>
-            </td>
-
-            <td style="padding: 12px; text-align: center; white-space: nowrap;">
-
-              <%= link_to "Editar",
-                          edit_admin_equipamento_path(equipamento),
-                          style: "margin-right: 10px; color: #2563eb;" %>
-
-              <%= button_to "Excluir",
-                            admin_equipamento_path(equipamento),
-                            method: :delete,
-                            data: {
-                              turbo_confirm: "Tem certeza que deseja excluir este equipamento?"
-                            },
-                            style: "border: none; background: none; color: #dc2626; cursor: pointer;" %>
-
-            </td>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-50">
+          <tr>
+            <th class="p-3 text-left font-semibold text-slate-600">Identificação</th>
+            <th class="p-3 text-left font-semibold text-slate-600">Tipo</th>
+            <th class="p-3 text-left font-semibold text-slate-600">Endereço</th>
+            <th class="p-3 text-left font-semibold text-slate-600">Latitude</th>
+            <th class="p-3 text-left font-semibold text-slate-600">Longitude</th>
+            <th class="p-3 text-center font-semibold text-slate-600">Ações</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
 
+        <tbody>
+          <% @equipamentos.each do |equipamento| %>
+            <tr class="border-t border-slate-100 hover:bg-slate-50/70">
+              <td class="p-3 font-semibold text-slate-800"><%= equipamento.identificacao %></td>
+              <td class="p-3 text-slate-600"><%= equipamento.tipo %></td>
+              <td class="p-3 text-slate-600 min-w-[280px]"><%= equipamento.endereco %></td>
+              <td class="p-3 text-slate-600"><%= equipamento.latitude || "—" %></td>
+              <td class="p-3 text-slate-600"><%= equipamento.longitude || "—" %></td>
+              <td class="p-3">
+                <div class="flex items-center justify-center gap-3">
+                  <%= link_to "Editar", edit_admin_equipamento_path(equipamento),
+                      class: "text-blue-600 font-semibold hover:underline" %>
+
+                  <%= button_to "Excluir", admin_equipamento_path(equipamento),
+                      method: :delete,
+                      data: { turbo_confirm: "Tem certeza que deseja excluir este equipamento?" },
+                      class: "text-red-600 font-semibold hover:underline bg-transparent border-0 cursor-pointer p-0" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

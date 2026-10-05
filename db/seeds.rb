@@ -1,7 +1,11 @@
-Usuario.create!(
-  nome: "Administrador do Sistema",
-  email: "admin1@der.pe.gov.br",
-  password: "12345678",
-  password_confirmation: "12345678",
-  admin: true
-)
+admin = Usuario.find_or_initialize_by(email: "admin@der.pe.gov.br")
+
+if admin.new_record?
+  admin.password = "SenhaSegura123!"
+  admin.password_confirmation = "SenhaSegura123!"
+end
+
+admin.admin = true
+admin.save!
+
+load Rails.root.join("db/seeds/equipamentos.rb")
