@@ -1,8 +1,6 @@
 # app/controllers/admin/editais_controller.rb
 class Admin::EditaisController < ApplicationController
-  # O ApplicationController já exige o login (authenticate_usuario!).
-  # Adicionamos uma camada extra para garantir que só os admins acedem:
-  before_action :verificar_admin
+before_action :authenticate_usuario!
 
   def index
     @editais = Edital.order(created_at: :desc)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <title>DER-PE | Sistema de Transito</title>
+    <title>DER-PE | Sistema de Trânsito</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -40,18 +40,28 @@
   <body class="text-slate-800 antialiased min-h-screen flex flex-col">
     <!-- Cabeçalho Oficial -->
     <header class="bg-[#003366] text-white shadow-md relative z-10">
-        <div class="container mx-auto px-4 py-4 max-w-6xl flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#003366]">
-                    <i class="ph-fill ph-flag-banner text-2xl"></i>
+        <div class="container mx-auto px-4 py-3 max-w-6xl flex items-center justify-between">
+            
+            <%= link_to root_path, class: "flex items-center gap-4 transition hover:opacity-90" do %>
+                <!-- Caixa branca elegante destacando a logo oficial -->
+                <div class="bg-white px-3 py-1.5 rounded-xl shadow-sm flex items-center justify-center shrink-0">
+                    <%= image_tag "LOGO DER-PE ESCURA.png", alt: "Logomarca DER-PE", class: "h-12 w-auto object-contain" %>
                 </div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tight">DER-PE</h1>
-                    <p class="text-xs text-blue-200 font-medium hidden sm:block">Departamento de Estradas de Rodagem de Pernambuco</p>
+                
+                <!-- Textos institucionais ao lado da logo -->
+                <div class="flex flex-col text-white text-left">
+                    <h1 class="text-xl font-bold tracking-wide leading-tight">DER-PE</h1>
+                    <h2 class="text-xs text-blue-100 font-medium tracking-wide hidden sm:block">Departamento de Estradas de Rodagem de Pernambuco</h2>
                 </div>
-            </div>
+            <% end %>
+
         </div>
-        <div class="h-1 w-full bg-gradient-to-r from-green-500 via-yellow-400 to-red-500"></div>
+        
+        <!-- Barra inferior com as cores institucionais (Verde e Amarelo) -->
+        <div class="flex h-1.5 w-full">
+          <div class="w-1/3 bg-[#8BC34A]"></div>
+          <div class="w-2/3 bg-[#FFC107]"></div>
+        </div>
     </header>
 
     <main class="flex-grow container mx-auto px-4 py-10 max-w-6xl relative">

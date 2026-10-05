@@ -1,19 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# test/fixtures/infracoes.yml
+infracao_um:
+  edital: edital_autuacao
+  placa: "ABC1234"
+  data_infracao: "2026-09-15"
+  auto_infracao: "PE000123"
+  codigo_infracao: "7455-0"
+  ano_notificacao: 2026
 
-one:
-  edital: one
-  placa: MyString
-  data_infracao: 2026-09-30
-  valor: 9.99
-  auto_infracao: MyString
-  codigo_infracao: MyString
-  ano_notificacao: 1
-
-two:
-  edital: two
-  placa: MyString
-  data_infracao: 2026-09-30
-  valor: 9.99
-  auto_infracao: MyString
-  codigo_infracao: MyString
-  ano_notificacao: 1
+infracao_dois:
+  edital: edital_penalidade
+  placa: "XYZ9876"
+  data_infracao: "2026-09-16"
+  auto_infracao: "PE000999"
+  codigo_infracao: "5000-0"
+  ano_notificacao: 2026
+  

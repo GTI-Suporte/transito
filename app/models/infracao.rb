@@ -1,10 +1,10 @@
-# app/models/infracao.rb
 class Infracao < ApplicationRecord
   self.table_name = 'infracoes'
   
   belongs_to :edital
 
-  validates :placa, presence: true
+  # Adicionámos a data e o auto aqui na regra de presença
+  validates :placa, :data_infracao, :auto_infracao, presence: true
   
   before_validation :formatar_placa
 

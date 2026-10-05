@@ -1,13 +1,12 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+edital_autuacao:
+  arquivo_nome: "diario_autuacao.pdf"
+  data_publicacao: "2026-10-01"
+  tipo: "autuacao"
+  arquivo_hash: "hash_exemplo_autuacao_123"
 
-one:
-  arquivo_nome: MyString
-  data_publicacao: 2026-09-30
-  tipo: MyString
-  arquivo_hash: MyString
-
-two:
-  arquivo_nome: MyString
-  data_publicacao: 2026-09-30
-  tipo: MyString
-  arquivo_hash: MyString
+edital_penalidade:
+  arquivo_nome: "diario_penalidade.pdf"
+  data_publicacao: "2026-10-02"
+  tipo: "penalidade"
+  arquivo_hash: "hash_exemplo_penalidade_456"
+  

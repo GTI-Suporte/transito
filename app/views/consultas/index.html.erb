@@ -44,7 +44,6 @@
                   <i class="ph-fill ph-warning-circle <%= icon_color %> text-3xl"></i>
                   <div>
                       <h3 class="text-xl font-bold text-slate-800">Infração Encontrada no Edital</h3>
-                      <!-- A linha do ficheiro foi removida daqui -->
                       <p class="text-sm text-slate-500">Publicado no Diário Oficial em <span class="font-semibold text-slate-700"><%= inf.edital.data_publicacao&.strftime("%d/%m/%Y") %></span></p>
                   </div>
                 </div>
@@ -90,6 +89,64 @@
                       <p class="text-base font-medium text-slate-800"><%= inf.codigo_infracao %> <span class="text-slate-500 text-sm"><%= inf.amparo_legal %></span></p>
                   </div>
               </div>
+
+              <!-- Card de Instruções Dinâmico (Autuação vs Penalidade) -->
+              <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-lg shadow-sm">
+                <div class="flex items-center mb-3">
+                  <i class="ph-fill ph-info text-amber-600 text-2xl mr-2"></i>
+                  <h3 class="text-md font-bold text-amber-800">Termo de Notificação Oficial</h3>
+                </div>
+
+                <!-- Texto Jurídico Oficial -->
+                <div class="mb-4 pb-4 border-b border-amber-200/60">
+                  <p class="text-xs text-amber-800/80 text-justify leading-relaxed">
+                    A Autoridade de Trânsito do DER-PE, em conformidade com as suas competências estabelecidas pelo CTB e regulamentações do CONTRAN, após de esgotadas as tentativas de notificação do infrator ou o proprietário do veículo por meio postal ou pessoal, e considerando os Autos de Infrações de Trânsito registrados, ficam os proprietários dos veículos relacionados, notificados da <strong><%= tipo == 'PENALIDADE' ? 'PENALIDADE DE MULTA' : 'autuação' %></strong> por infração de trânsito.
+                  </p>
+                </div>
+                
+                <div class="text-sm text-amber-800 space-y-3">
+                  <p>
+                    <strong>Prazo Legal:</strong> Terão o prazo de <strong>30 (trinta) dias</strong> contados a partir da data da publicação deste Edital para 
+                    <% if tipo == 'PENALIDADE' %>
+                      apresentar seu recurso a JARI.
+                    <% else %>
+                      identificar o condutor infrator ou apresentar sua defesa.
+                    <% end %>
+                    
+                    <% if inf.edital.data_publicacao %>
+                      <br>
+                      <span class="inline-block mt-1 px-2 py-1 bg-amber-200 text-amber-900 text-xs font-semibold rounded">
+                        Data limite estimada: <%= (inf.edital.data_publicacao + 30.days).strftime("%d/%m/%Y") %>
+                      </span>
+                    <% end %>
+                  </p>
+
+                  <p>
+                    <strong>Onde entregar:</strong> 
+                    <% if tipo == 'PENALIDADE' %>
+                      Em qualquer ponto de atendimento do DETRAN/PE, na sede do DER/PE ou enviar por remessa postal para o endereço:
+                    <% else %>
+                      Na sede do DER/PE ou enviar por remessa postal para o endereço:
+                    <% end %>
+                    <br>
+                    <span class="block bg-amber-100 p-2 mt-1 rounded border border-amber-200 font-mono text-xs text-amber-900">
+                      Av. Cruz Cabugá, 1033 - Santo Amaro, Recife/PE, CEP 50.040-912
+                    </span>
+                  </p>
+
+                  <% if tipo == 'PENALIDADE' %>
+                    <p class="bg-amber-200 text-amber-900 px-3 py-2 rounded-md font-medium">
+                      <i class="ph-fill ph-money mr-1"></i> 
+                      <strong>Pagamento:</strong> O pagamento da multa poderá ser efetuado até a data do vencimento, por <strong>oitenta por cento (80%)</strong> do seu valor.
+                    </p>
+                  <% end %>
+
+                  <p>
+                    <strong>Para detalhamento das infrações e maiores informações:</strong> Entrar em contato com o Tele Atendimento através do nº <strong>(81) 3181-4313 / 4312</strong> ou pelo site <strong>www.der.pe.gov.br</strong>.
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
         <% end %>
