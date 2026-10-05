@@ -2,7 +2,9 @@
   <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
     <div>
       <h1 class="text-2xl font-bold text-slate-800">Equipamentos</h1>
-      <p class="text-sm text-slate-500 mt-1">Gerenciamento dos equipamentos de fiscalização.</p>
+      <p class="text-sm text-slate-500 mt-1">
+        Gerenciamento dos equipamentos de fiscalização.
+      </p>
     </div>
 
     <div class="flex flex-wrap gap-2">
@@ -30,10 +32,79 @@
     </div>
   <% end %>
 
+  <!-- Pesquisa e filtros -->
+  <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 mb-5">
+    <%= form_with url: admin_equipamentos_path, method: :get, local: true do %>
+
+      <div class="flex flex-col lg:flex-row gap-4">
+        <!-- Pesquisa -->
+        <div class="flex-1">
+          <label for="q" class="block text-sm font-semibold text-slate-700 mb-2">
+            Pesquisar equipamento
+          </label>
+
+          <%= text_field_tag :q,
+              params[:q],
+              id: "q",
+              placeholder: "Identificação, endereço ou tipo...",
+              class: "w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+
+        <!-- Botões -->
+        <div class="flex items-end gap-2">
+          <%= submit_tag "Pesquisar",
+              class: "px-5 py-2.5 rounded-lg bg-[#003366] text-white font-semibold text-sm hover:bg-blue-800 transition cursor-pointer" %>
+
+          <%= link_to "Limpar",
+              admin_equipamentos_path,
+              class: "px-5 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition" %>
+        </div>
+      </div>
+
+      <!-- Filtros por tipo -->
+      <div class="mt-5 pt-5 border-t border-slate-200">
+        <div class="flex flex-col gap-3">
+          <div>
+            <span class="text-sm font-semibold text-slate-700">
+              Filtrar por tipo
+            </span>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <% Equipamento::TIPOS.each do |tipo| %>
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <%= check_box_tag "tipos[]",
+                    tipo,
+                    Array(params[:tipos]).include?(tipo),
+                    class: "w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" %>
+
+                <span class="text-sm text-slate-600">
+                  <%= tipo %>
+                </span>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+
+  <!-- Resultado -->
   <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-    <div class="px-5 py-4 border-b border-slate-200">
-      <strong class="text-slate-800"><%= @equipamentos.count %></strong>
-      <span class="text-sm text-slate-500">equipamentos cadastrados</span>
+    <div class="px-5 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div>
+        <strong class="text-slate-800"><%= @equipamentos.count %></strong>
+        <span class="text-sm text-slate-500">
+          <%= @equipamentos.count == 1 ? "equipamento encontrado" : "equipamentos encontrados" %>
+        </span>
+      </div>
+
+      <% if params[:q].present? || Array(params[:tipos]).any? %>
+        <span class="text-xs text-slate-400">
+          Filtros aplicados
+        </span>
+      <% end %>
     </div>
 
     <div class="overflow-x-auto">
@@ -50,22 +121,53 @@
         </thead>
 
         <tbody>
-          <% @equipamentos.each do |equipamento| %>
-            <tr class="border-t border-slate-100 hover:bg-slate-50/70">
-              <td class="p-3 font-semibold text-slate-800"><%= equipamento.identificacao %></td>
-              <td class="p-3 text-slate-600"><%= equipamento.tipo %></td>
-              <td class="p-3 text-slate-600 min-w-[280px]"><%= equipamento.endereco %></td>
-              <td class="p-3 text-slate-600"><%= equipamento.latitude || "—" %></td>
-              <td class="p-3 text-slate-600"><%= equipamento.longitude || "—" %></td>
-              <td class="p-3">
-                <div class="flex items-center justify-center gap-3">
-                  <%= link_to "Editar", edit_admin_equipamento_path(equipamento),
-                      class: "text-blue-600 font-semibold hover:underline" %>
+          <% if @equipamentos.any? %>
+            <% @equipamentos.each do |equipamento| %>
+              <tr class="border-t border-slate-100 hover:bg-slate-50/70">
+                <td class="p-3 font-semibold text-slate-800">
+                  <%= equipamento.identificacao %>
+                </td>
 
-                  <%= button_to "Excluir", admin_equipamento_path(equipamento),
-                      method: :delete,
-                      data: { turbo_confirm: "Tem certeza que deseja excluir este equipamento?" },
-                      class: "text-red-600 font-semibold hover:underline bg-transparent border-0 cursor-pointer p-0" %>
+                <td class="p-3 text-slate-600">
+                  <%= equipamento.tipo %>
+                </td>
+
+                <td class="p-3 text-slate-600 min-w-[280px]">
+                  <%= equipamento.endereco %>
+                </td>
+
+                <td class="p-3 text-slate-600">
+                  <%= equipamento.latitude || "—" %>
+                </td>
+
+                <td class="p-3 text-slate-600">
+                  <%= equipamento.longitude || "—" %>
+                </td>
+
+                <td class="p-3">
+                  <div class="flex items-center justify-center gap-3">
+                    <%= link_to "Editar", edit_admin_equipamento_path(equipamento),
+                        class: "text-blue-600 font-semibold hover:underline" %>
+
+                    <%= button_to "Excluir", admin_equipamento_path(equipamento),
+                        method: :delete,
+                        data: { turbo_confirm: "Tem certeza que deseja excluir este equipamento?" },
+                        class: "text-red-600 font-semibold hover:underline bg-transparent border-0 cursor-pointer p-0" %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="6" class="p-10 text-center">
+                <div class="text-slate-500">
+                  <p class="font-semibold text-slate-700">
+                    Nenhum equipamento encontrado.
+                  </p>
+
+                  <p class="text-sm mt-1">
+                    Tente alterar a pesquisa ou remover algum filtro.
+                  </p>
                 </div>
               </td>
             </tr>

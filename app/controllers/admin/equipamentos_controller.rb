@@ -3,6 +3,20 @@ class Admin::EquipamentosController < Admin::BaseController
 
   def index
     @equipamentos = Equipamento.order(:identificacao)
+
+    if params[:q].present?
+      termo = "%#{ActiveRecord::Base.sanitize_sql_like(params[:q].strip)}%"
+
+      @equipamentos = @equipamentos.where(
+        "identificacao ILIKE :termo OR endereco ILIKE :termo OR tipo ILIKE :termo",
+        termo: termo
+      )
+    end
+
+    tipos = Array(params[:tipos]).reject(&:blank?)
+    tipos = tipos & Equipamento::TIPOS
+
+    @equipamentos = @equipamentos.where(tipo: tipos) if tipos.any?
   end
 
   def new
