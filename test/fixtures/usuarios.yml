@@ -9,3 +9,4 @@ operador:
   email: "operador@der.pe.gov.br"
   encrypted_password: "senha_falsa_criptografada_2"
   ativo: true
+  
