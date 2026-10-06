@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # Área administrativa (Gera o admin_edital_path, admin_equipamentos_path, etc)
   namespace :admin do
+    resources :menu, only: [:index]
     resources :equipamentos
     resources :editais, only: [:index, :create, :destroy]
   end
@@ -21,8 +22,7 @@ Rails.application.routes.draw do
   # API pública usada pelo dashboard e sistema de editais
   namespace :api do
     resources :equipamentos, only: [:index, :show]
-    post "editais/upload", to: "editais#upload"
-    get "infracoes/:placa", to: "infracoes#consulta"
+    resources :infracoes, only: [:index, :show]
   end
 
   # Health check do Rails

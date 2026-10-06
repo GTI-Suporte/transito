@@ -1,0 +1,62 @@
+<div class="fade-in max-w-4xl mx-auto">
+  
+  <!-- Cabeçalho da Página -->
+  <div class="mb-8 text-center sm:text-left flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-6">
+    <div>
+      <span class="bg-[#003366] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">DER-PE • Gestão</span>
+      <h2 class="text-3xl font-bold text-slate-800 mt-2">Menu do Administrador</h2>
+      <p class="text-slate-600">Selecione abaixo o módulo do sistema que deseja gerir.</p>
+    </div>
+  </div>
+
+  <!-- Grelha de Cartões (Menu Principal) -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    
+    <!-- Opção 1: Editais -->
+    <%= link_to admin_editais_path, class: "bg-white p-6 rounded-2xl shadow-md border border-slate-200 hover:border-[#003366] hover:shadow-xl transition group flex flex-col justify-between" do %>
+      <div>
+        <div class="w-14 h-14 bg-blue-50 text-[#003366] rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:bg-[#003366] group-hover:text-white transition">
+          <i class="ph-bold ph-file-text"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-2">Editais</h3>
+        <p class="text-sm text-slate-500">Gestão de publicações, upload de PDFs e extração de infrações e notificações.</p>
+      </div>
+      <div class="mt-6 flex items-center text-sm font-semibold text-[#003366] group-hover:translate-x-1 transition-transform">
+        Aceder <i class="ph-bold ph-arrow-right ml-1"></i>
+      </div>
+    <% end %>
+
+    <!-- Opção 2: Equipamentos -->
+    <% if defined?(admin_equipamentos_path) %>
+      <%= link_to admin_equipamentos_path, class: "bg-white p-6 rounded-2xl shadow-md border border-slate-200 hover:border-[#003366] hover:shadow-xl transition group flex flex-col justify-between" do %>
+        <div>
+          <div class="w-14 h-14 bg-blue-50 text-[#003366] rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:bg-[#003366] group-hover:text-white transition">
+            <i class="ph-bold ph-video-camera"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Equipamentos</h3>
+          <p class="text-sm text-slate-500">Gestão de radares, lombadas eletrónicas e dispositivos registados.</p>
+        </div>
+        <div class="mt-6 flex items-center text-sm font-semibold text-[#003366] group-hover:translate-x-1 transition-transform">
+          Aceder <i class="ph-bold ph-arrow-right ml-1"></i>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!-- Opção 3: Leilões (Futuro) -->
+    <div class="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-200 opacity-75 flex flex-col justify-between relative overflow-hidden">
+      <span class="absolute top-4 right-4 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Em Breve</span>
+      <div>
+        <div class="w-14 h-14 bg-slate-200 text-slate-500 rounded-xl flex items-center justify-center text-3xl mb-4">
+          <i class="ph-bold ph-gavel"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-700 mb-2">Leilões</h3>
+        <p class="text-sm text-slate-500">Gestão de lotes de veículos apreendidos e editais de leilão.</p>
+      </div>
+      <div class="mt-6 text-sm font-medium text-slate-400 flex items-center">
+        Módulo futuro
+      </div>
+    </div>
+
+  </div>
+
+</div>
