@@ -15,11 +15,12 @@ class Api::EquipamentosController < ApplicationController
 
   def serialize(equipamento)
     {
-      id: equipamento.identificacao,
-      address: equipamento.endereco,
-      lat: equipamento.latitude,
-      lng: equipamento.longitude,
-      type: equipamento.tipo
-    }
+  id: equipamento.identificacao,
+  address: equipamento.endereco,
+  lat: equipamento.latitude,
+  lng: equipamento.longitude,
+  type: equipamento.tipo,
+  subtipo_semaforo: equipamento.subtipo_semaforo
+}
   end
 end

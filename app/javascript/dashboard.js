@@ -17,7 +17,7 @@ function initMap() {
   }).setView([-8.05, -34.9], 9);
 
   L.tileLayer(
-    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4",
+    "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_4d1n_1_5bb6f5807e5909740feda6f7",
     {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',

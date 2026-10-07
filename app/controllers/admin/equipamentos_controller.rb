@@ -60,12 +60,13 @@ class Admin::EquipamentosController < Admin::BaseController
   end
 
   def equipamento_params
-    params.require(:equipamento).permit(
-      :identificacao,
-      :endereco,
-      :latitude,
-      :longitude,
-      :tipo
-    )
-  end
+  params.require(:equipamento).permit(
+    :identificacao,
+    :endereco,
+    :latitude,
+    :longitude,
+    :tipo,
+    :subtipo_semaforo
+  )
+end
 end
