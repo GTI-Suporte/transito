@@ -35,26 +35,12 @@ function initMap() {
    * Mantenha aqui a mesma chave CARTO que você já está usando.
    * Não compartilhe a chave publicamente.
    */
-  const CARTO_API_KEY = "SUA_CHAVE_ATUAL_AQUI";
+  const CARTO_API_KEY = "cb1_4d1n_1_5bb6f5807e5909740feda6f7";
 
-  L.tileLayer(
-    `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_4d1n_1_5bb6f5807e5909740feda6f7`,
-    {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-        '&copy; <a href="https://carto.com/attribution/">CARTO</a>',
-
-      maxZoom: 20,
-
-      /*
-       * No zoom 20, reutiliza os tiles do 19 e amplia.
-       * Evita perder o desenho das ruas ao chegar no limite.
-       */
-      maxNativeZoom: 19,
-
-      detectRetina: true
-    }
-  ).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd', maxZoom: 20
+}).addTo(map);
 
   L.control.zoom({
     position: "bottomright"
@@ -486,8 +472,8 @@ function filterData() {
           todosSubtiposAtivos
             ? true
             : subtiposAtivos.includes(
-                item.subtipo
-              );
+              item.subtipo
+            );
 
         const matchesSearch =
           !searchTerm ||
@@ -556,8 +542,8 @@ function setupInfoButtons() {
 
               <p>
                 ${escapeHtml(
-                  button.dataset.info
-                )}
+              button.dataset.info
+            )}
               </p>
             `;
 
@@ -659,7 +645,7 @@ function bootMapaSemaforo() {
   if (
     !mapElement ||
     mapElement.dataset.initialized ===
-      "true"
+    "true"
   ) {
     return;
   }
