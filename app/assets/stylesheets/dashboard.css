@@ -597,6 +597,7 @@ body {
         overflow: hidden;
     }
 
+    /* Mapa fica fixo na parte superior */
     #map {
         order: 1;
         width: 100%;
@@ -604,16 +605,45 @@ body {
         flex: 0 0 52dvh;
     }
 
+    /* Toda a barra lateral passa a ser rolável */
     #sidebar {
         order: 2;
         width: 100%;
         height: 48dvh;
         flex: 0 0 48dvh;
+
         min-height: 0;
+
         border-right: none;
         border-top: 1px solid var(--border-color);
+
         box-shadow:
             0 -4px 24px rgba(0, 0, 0, 0.08);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #94a3b8 transparent;
+    }
+
+    /* Barra de rolagem no Chrome/Edge */
+    #sidebar::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    #sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #sidebar::-webkit-scrollbar-thumb {
+        background: #94a3b8;
+        border-radius: 10px;
+    }
+
+    #sidebar::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
     }
 
     .header {
@@ -685,8 +715,17 @@ body {
         padding: 7px 12px;
     }
 
+    /*
+     * No celular, a lista deixa de ter uma segunda
+     * barra de rolagem. A rolagem fica somente
+     * no #sidebar.
+     */
     .results-list {
-        padding: 8px 12px 14px;
+        flex: none;
+        min-height: auto;
+        overflow: visible;
+
+        padding: 8px 12px 20px;
     }
 
     .result-card {
