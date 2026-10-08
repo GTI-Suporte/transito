@@ -1987,6 +1987,741 @@ equipamentos = [
     longitude: -35.43855507316404,
     tipo: "Rede Semafórica"
   },
+  {
+    identificacao: "051",
+    endereco: "AV. Pan Nordestina com AV. Chico Science - OLINDA/PE",
+    latitude: -7.998809900685181,
+    longitude: -34.85521743914371,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "052",
+    endereco: "AV. Cleto Campelo, entre a R. Oito de Dezembro e Travessa Cleto Campelo Segundo, em frente a Assembleia de Deus – MORENO/PE",
+    latitude: -8.116831717693492,
+    longitude: -35.09189652207732,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "053",
+    endereco: "AV. Pan Nordestina com AV. Tabajara, antigo Posto Rodoviário Maranguape I - PAULISTA/PE",
+    latitude: -7.973085206621891,
+    longitude: -34.86490341332502,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "054",
+    endereco: "AV. Pan Nordestina próximo à Estação BRT Bultrins, sentido Recife/Paulista - OLINDA/PE",
+    latitude: -7.9941780009373735,
+    longitude: -34.8548355008638,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "055",
+    endereco: "AV. Henrique de Holanda, próximo à AV. Fazenda e em frente ao Posto de Combustível – VITÓRIA DE SANTO ANTÃO/PE",
+    latitude: -8.114845625622767,
+    longitude: -35.27581527339205,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "056",
+    endereco: "AV. Pan Nordestina próximo à Estação BRT Bultrins, sentido Paulista/Recife - OLINDA/PE",
+    latitude: -7.994071635599415,
+    longitude: -34.85508284728333,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "057",
+    endereco: "Av. Dr. Cláudio José Gueiros Leite com AV. Cabedelo, Janga - PAULISTA /PE",
+    latitude: -7.942841618181765,
+    longitude: -34.825002186228744,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "058",
+    endereco: "AV. DR. Belmiro Correia, em frente ao Atacadista Assaí – CAMARAGIBE/PE",
+    latitude: -8.01881248193348,
+    longitude: -34.97225718889746,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "059",
+    endereco: "AV. Congresso Eucarístico Internacional, esquina com AV. Getúlio Vargas, em frente ao Home Center 2001 – CARPINA/PE",
+    latitude: -7.844865150390872,
+    longitude: -35.243996969120204,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "060",
+    endereco: "AV. Agamenon Magalhães com AV. Padre Rocha, em frente a HONDA - CARPINA/PE",
+    latitude: -7.843150058720924,
+    longitude: -35.253450604258134,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "061",
+    endereco: "AV. Agamenon Magalhães com R. Ernâni Farias de Miranda - CARPINA/PE",
+    latitude: -7.8438,
+    longitude: -35.26607,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "062",
+    endereco: "Estrada da Batalha com R. Armindo Moura – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.14702,
+    longitude: -34.91867,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "063",
+    endereco: "Estrada da Batalha com R. Quatro de Outubro – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.15399,
+    longitude: -34.92008,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "064",
+    endereco: "Estrada da Batalha próxima a Comercial Batista – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.15658,
+    longitude: -34.92406,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "065",
+    endereco: "AV. DR. Júlio Maranhão, próximo a R. Araoazes, em frente ao Banco do Brasil, Prazeres, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.16289,
+    longitude: -34.93078,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "066",
+    endereco: "AV. DR. Júlio Maranhão esquina com R. Fábio Maranhão, Prazeres, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.16488,
+    longitude: -34.93272,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "067",
+    endereco: "Av. Doutor Joaquim Nabuco em frente ao Hospital N. Sa. Aparecida, Hospital Central, sentido Recife / Paulista - PAULISTA /PE",
+    latitude: -7.95829,
+    longitude: -34.87156,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "068",
+    endereco: "Estrada da Batalha, próximo ao Centro Administrativo da Prefeitura e em frente ao Ministério do Trabalho – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.1508,
+    longitude: -34.9193,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "069",
+    endereco: "AV. DR. Joaquim Nabuco, próximo a R. Padre Anchieta, em frente ao Hospital N. Sa. Aparecida, Hospital Central - Sentido Paulista/Recife) - PAULISTA /PE",
+    latitude: -7.958,
+    longitude: -34.87203,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "070",
+    endereco: "AV. Barão de Lucena, em frente à Escola Rodolfo Aureliano, Centro, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.11308,
+    longitude: -35.01971,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "071",
+    endereco: "AV. Barão de Lucena, esquina com R. Cel. Câmara, Centro, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.11244,
+    longitude: -35.01788,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "072",
+    endereco: "AV. DR. Júlio Maranhão, próximo a Integração Cajueiro Seco, sentido Recife/Cabo, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.16707,
+    longitude: -34.93512,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "073",
+    endereco: "AV. Barão de Lucena, esquina com R. DES. Henrique Capitulino, Centro, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.11197,
+    longitude: -35.01515,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "074",
+    endereco: "AV. General Manoel Rabelo em frente ao 14º Batalhão de Infantaria Motorizado, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.10853,
+    longitude: -34.99382,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "075",
+    endereco: "AV. General Manoel Rabelo esquina com AV. Agamenon Magalhães, entrada Cavalheiro, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.09954,
+    longitude: -34.96905,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "076",
+    endereco: "AV. General Manoel Rabelo próximo a R. da Esperança, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.09517,
+    longitude: -34.96635,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "077",
+    endereco: "AV. Antônio Cabral de Souza, próximo a R. Cinco, Maranguape I, PAULISTA/PE",
+    latitude: -7.94428,
+    longitude: -34.86781,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "078",
+    endereco: "AV. Antônio Cabral de Souza, próximo a Residencial Paulista, Maranguape I, PAULISTA/PE",
+    latitude: -7.94165,
+    longitude: -34.86519,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "079",
+    endereco: "AV. Antônio Cabral de Souza, próximo a AV. Dois, Maranguape I, PAULISTA/PE",
+    latitude: -7.93449,
+    longitude: -34.86312,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "080",
+    endereco: "AV. Antônio Cabral de Souza, próximo a AV. B, Maranguape II, PAULISTA/PE",
+    latitude: -7.9322,
+    longitude: -34.86119,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "081",
+    endereco: "AV. Agamenon Magalhães com R. Deputado Mario Monteiro, próximo a passagem de nível linha do trem - CARPINA/PE",
+    latitude: -7.84253,
+    longitude: -35.25921,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "082",
+    endereco: "AV. Agamenon Magalhães com R. Francisco Montenegro Guerra, CARPINA/PE",
+    latitude: -7.84245,
+    longitude: -35.26162,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "083",
+    endereco: "R. Humberto Félix da Cruz, próximo ao Terminal Pelópidas Silveira - Sentido Paulista/Abreu e Lima, PAULISTA/PE",
+    latitude: -7.94627,
+    longitude: -34.87757,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "084",
+    endereco: "R. Humberto Félix da Cruz, próximo ao Terminal Pelópidas Silveira - Sentido Abreu e Lima/Paulista, PAULISTA/PE",
+    latitude: -7.94722,
+    longitude: -34.87808,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "085",
+    endereco: "AV. Rodolfo Aureliano, próximo a Igreja de São Francisco - Sentido Recife/Paulista – PAULISTA/PE",
+    latitude: -7.9545,
+    longitude: -34.87478,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "086",
+    endereco: "AV. DR. Belmiro Correia com R. Duque de Caxias - SÃO LOURENÇO DA MATA/PE",
+    latitude: -8.00594,
+    longitude: -35.02089,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "087",
+    endereco: "AV. Rodolfo Aureliano, próximo a Igreja de São Francisco, Sentido Paulista/Recife – PAULISTA/PE",
+    latitude: -7.95437,
+    longitude: -34.8745,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "088",
+    endereco: "AV. DR. Belmiro Correia com R. Prof. Luís da Silva - CAMARAGIBE/PE",
+    latitude: -8.02146,
+    longitude: -34.98681,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "089",
+    endereco: "AV. DR. Júlio Maranhão, próximo a Integração Cajueiro Seco, sentido Cabo/Recife, JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.16746,
+    longitude: -34.93465,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "090",
+    endereco: "AV. General Newton Cavalcante com Av. Professor Samuel Macdowell - CAMARAGIBE/PE",
+    latitude: -8.01641,
+    longitude: -34.97179,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "091",
+    endereco: "AV. Sofronio Portela, em frente à Prefeitura de Moreno – MORENO/PE",
+    latitude: -8.11856,
+    longitude: -35.10133,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "092",
+    endereco: "R. Vereador Rodolfo F. Aragão, esquina com R. Maestro Alexandre, entorno do girador – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95026,
+    longitude: -36.20773,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "093",
+    endereco: "R. Bela Vista, esquina com AV. Vinte e Nove de Dezembro, entorno do girador – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95045,
+    longitude: -36.20774,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "094",
+    endereco: "AV. General Manoel Rabêlo, esquina com Av. Manoel Carneiro Leão – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.10574,
+    longitude: -34.97696,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "095",
+    endereco: "AV. General Castelo Branco, com AV. João Pereira de Oliveira - PAULISTA PE",
+    latitude: -7.91959,
+    longitude: -34.84888,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "096",
+    endereco: "AV. General Castelo Branco, com Estrada de Jaguarana - PAULISTA/PE",
+    latitude: -7.92988,
+    longitude: -34.85936,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "097",
+    endereco: "AV. Pan Nordestina com R. Duarte Coelho - OLINDA/PE",
+    latitude: -8.02383,
+    longitude: -34.86246,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "098",
+    endereco: "Estrada da Batalha, esquina com R. Ana Barreto – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.144576,
+    longitude: -34.918356,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "099",
+    endereco: "AV. DR. Belmiro Correia com R. Antônio Felipe - CAMARAGIBE/PE",
+    latitude: -8.02357,
+    longitude: -34.99509,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "100",
+    endereco: "AV. General Newton Cavalcante, Estrada de Aldeia km 2,5, em frente a FOPE, com AV. Luiza de Medeiros - CAMARAGIBE / PE",
+    latitude: -8.00018,
+    longitude: -34.97233,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "101",
+    endereco: "R. Humberto Felix da Costa, em frente a R. Serra Talhada, próximo ao Hospital Miguel Arraes - PAULISTA/PE",
+    latitude: -7.92087,
+    longitude: -34.89395,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "102",
+    endereco: "AV. Antônio Cabral de Souza com R. Arquiteto José Geraldo Castro Paes - PAULISTA/PE",
+    latitude: -7.9024,
+    longitude: -34.84246,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "103",
+    endereco: "AV. DR. Cláudio José Gueiros Leite com R. Poeta João Neves - PAULISTA/PE",
+    latitude: -7.92964,
+    longitude: -34.82295,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "104",
+    endereco: "AV. Antônio Carlos de Souza, 350, em frente ao CJ. Residencial Jardins da Roseira - PAULISTA/PE",
+    latitude: -7.94946,
+    longitude: -34.87445,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "105",
+    endereco: "AV. DR. Belmiro Correia com R. Sátiro Ivo - CAMARAGIBE/PE",
+    latitude: -8.02206,
+    longitude: -34.98965,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "106",
+    endereco: "AV. Pan Nordestina, em frente à Estação BRT Complexo de Salgadinho - Sentido Paulista/Recife - OLINDA/PE",
+    latitude: -8.02712,
+    longitude: -34.86495,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "107",
+    endereco: "R. Humberto Felix da Cruz com Rua Paulista, Artur Lundgren II – PAULISTA/PE",
+    latitude: -7.930708931183502,
+    longitude: -34.88621021203928,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "108",
+    endereco: "AV. DR. Belmiro Correia com R. Severino Rodrigues dos Reis – SÃO LOURENÇO DA MATA/PE",
+    latitude: -8.0179,
+    longitude: -35.00738,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "109",
+    endereco: "AV. DR. Joaquim Nabuco, com AV. Benjamin, sentido Paulista/Abreu e Lima - PAULISTA/PE",
+    latitude: -7.96349,
+    longitude: -34.86835,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "110",
+    endereco: "R. Senador Paulo Pessoa Guerra com AV. Marilda Arruda Guerra - SURUBIM/PE",
+    latitude: -7.85428,
+    longitude: -35.76308,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "111",
+    endereco: "R. Humberto Felix da Cruz em frente a Faculdade Joaquim Nabuco e ao Paulista North Way Shopping - PAULISTA/PE",
+    latitude: -7.93927,
+    longitude: -34.87945,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "112",
+    endereco: "AV. DR. Belmiro Correia com AV. Márcia de Windsor, em frente ao Atacadão - CAMARAGIBE/PE",
+    latitude: -8.01966,
+    longitude: -35.00535,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "113",
+    endereco: "AV. DR. Belmiro Correia em frente ao Residencial Prive Solar Mont Blanck - SÃO LOURENÇO DA MATA/PE",
+    latitude: -8.01584,
+    longitude: -35.01558,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "114",
+    endereco: "AV. DR. Cláudio José Gueiros Leite com R. Djalma Dutra, em frente ao Armazém Coral - PAULISTA/PE",
+    latitude: -7.93912,
+    longitude: -34.82489,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "115",
+    endereco: "AV. General Manoel Rabêlo, próximo a R. Sen. Barros de Carvalho – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.10829,
+    longitude: -34.98637,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "116",
+    endereco: "AV. General Castelo Branco, em frente a R. Quatorze, próximo ao Condomínio Horizontal - PAULISTA/PE",
+    latitude: -7.93748,
+    longitude: -34.86377,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "117",
+    endereco: "AV. General Newton Cavalcante, próximo a R. Bezerra Menezes, em frente ao Parque de Camaragibe - CAMARAGIBE/PE",
+    latitude: -8.01781,
+    longitude: -34.97065,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "118",
+    endereco: "Av. Pan Nordestina, em frente à Estação de BRT Quartel - sentido Paulista/Recife - OLINDA PE",
+    latitude: -8.00157,
+    longitude: -34.85649,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "119",
+    endereco: "Av. Pan Nordestina, em frente R. dos Tocos e à Estação de BRT Quartel - sentido Recife/Paulista - OLINDA/PE",
+    latitude: -8.00154,
+    longitude: -34.85599,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "120",
+    endereco: "AV. Pan Nordestina, próximo à Estação do BRT Sítio Histórico, sentido Recife/Paulista – OLINDA/PE",
+    latitude: -8.00591,
+    longitude: -34.85703,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "121",
+    endereco: "AV. Pan Nordestina, em frente à Estação BRT Matias de Albuquerque, sentido Recife/Paulista - OLINDA /PE",
+    latitude: -8.01079,
+    longitude: -34.85868,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "122",
+    endereco: "AV. Pan Nordestina, em frente à Estação BRT Kennedy - OLINDA/PE",
+    latitude: -8.01519,
+    longitude: -34.85988,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "123",
+    endereco: "R. Frei Vicente Salvador com R. Leão Dourado, Alto do Moura – CARUARU / PE",
+    latitude: -8.28823,
+    longitude: -35.98436,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "124",
+    endereco: "AV. Frei Vicente Salvador com R. Professora Maria Emília – CARUARU/PE",
+    latitude: -8.28219,
+    longitude: -35.98134,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "125",
+    endereco: "AV. João Soares de Lira com R. Romênia - CARUARU/PE",
+    latitude: -8.275956653066759,
+    longitude: -35.98179422773768,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "126",
+    endereco: "R. DR. José Paes, em frente ao UniCompra com AV. Agamenon Magalhães - CARUARU/PE",
+    latitude: -8.2672,
+    longitude: -35.97872,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "127",
+    endereco: "Av. General Manoel Rabelo com Rua da Felicidade - JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.10205,
+    longitude: -34.97191,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "128",
+    endereco: "AV. Congresso Eucarístico Internacional, em frente ao nº 168/190 - São José – CARPINA/PE",
+    latitude: -7.84409,
+    longitude: -35.24593,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "129",
+    endereco: "Av. DR Cláudio José Gueiros Leite com Rua Dr. Luís Inácio de Andrade Lima",
+    latitude: -7.9194,
+    longitude: -34.82101,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "130",
+    endereco: "R. Antônio Belio, com BR-424 – VETUROSA/PE",
+    latitude: -8.57649,
+    longitude: -36.87487,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "131",
+    endereco: "Av. Joaquim Ribeiro em frente à Estação de BRT Padre Cícero – RECIFE /PE",
+    latitude: -8.0282,
+    longitude: -34.95947,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "132",
+    endereco: "AV. Barão de Lucena, em frente ao Condomínio Maurício de Nassau – JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.11349,
+    longitude: -35.02737,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "133",
+    endereco: "AV. Igarassu com R. Augusto Gondim e trevo de acesso a PE-062 – GOIANA/PE",
+    latitude: -7.56316,
+    longitude: -35.01311,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "134",
+    endereco: "AV. Pref. Braz de Lira com AV. Pref. Teófanes Ferraz – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95557,
+    longitude: -36.19671,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "135",
+    endereco: "AV. Pref. Braz de Lira com R. das Pacas – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95254,
+    longitude: -36.20047,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "136",
+    endereco: "R. Vereador Rodolfo F. Aragão com R. Cabo Otávio Aragão – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95067,
+    longitude: -36.20386,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "137",
+    endereco: "R. Bela Vista com AV. Teônilo Silvestre – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.9503,
+    longitude: -36.2104,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "138",
+    endereco: "R. Bela Vista com R. Joaquim Nabuco – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95022,
+    longitude: -36.21187,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "139",
+    endereco: "R. Bela Vista com R. João Glicério do Nascimento – SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.95,
+    longitude: -36.21583,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "140",
+    endereco: "R. Bela Vista com R. Pedro e Paulo Alves da Rocha - SANTA CRUZ DO CAPIBARIBE/PE",
+    latitude: -7.94991,
+    longitude: -36.21774,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "141",
+    endereco: "Av. Cícero Batista de Olivieira/Pista local",
+    latitude: -8.19577,
+    longitude: -35.56668,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "142",
+    endereco: "Av. Doutor Belmínio Correia / Atacarejo",
+    latitude: -8.00189,
+    longitude: -35.02304,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "143",
+    endereco: "Av. General Manoel Rabelo prox. ao Condomínio Vial Natal - JABOATÃO DOS GUARARAPES/PE",
+    latitude: -8.10847,
+    longitude: -34.9991,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "144",
+    endereco: "Rua São José / Rua Santa Inês",
+    latitude: -8.00332,
+    longitude: -36.06033,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "145",
+    endereco: "R. Humberto Felix da Cruz (PE-15) / Rua Primavera",
+    latitude: -7.925989544785939,
+    longitude: -34.88925796318928,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "146",
+    endereco: "PE-095 / R. Artur Antônio da Silva",
+    latitude: -8.255014390089562,
+    longitude: -35.96549133522419,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "147",
+    endereco: "Av. Dr. Sanfrônio Portela / Ponte/ Santa Maria",
+    latitude: -8.118961009634987,
+    longitude: -35.10584873301717,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "148",
+    endereco: "Av. Joaquim Ribeiro / Rua Dr. Dustan de Carvalho Soares",
+    latitude: -8.028940242955834,
+    longitude: -34.95897447645441,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "149",
+    endereco: "Estr. Eixo da Integração / Av. Domingos Fernandes (Sáida do Conj. Marcus Freire)",
+    latitude: -8.154587747937017,
+    longitude: -34.9610194891982,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "150",
+    endereco: "PE009 / Próximo a Pousada JD sentido Cabo",
+    latitude: -8.439462476108423,
+    longitude: -35.010731818977035,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "151",
+    endereco: "PE009 / Antes da Tv Cristóvão Souza Leão Sentido Porto de Galinha",
+    latitude: -8.438686574449543,
+    longitude: -35.01110851581042,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "152",
+    endereco: "Estr. Eixo da Integração / Rua Um (Entrada de Muribeca)",
+    latitude: -8.153780457829457,
+    longitude: -34.955694657757896,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "153",
+    endereco: "Rodovia PE-001/Em frente a Padaria Karla",
+    latitude: -7.8991015265439355,
+    longitude: -34.82600642527985,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "154",
+    endereco: "PE001- Av. Dr. Cláudio José Gueiros Leite / Rua São João de Deus",
+    latitude: -7.937358250463115,
+    longitude: -34.82477565197502,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "155",
+    endereco: "Rua Dom Lustosa - PE053 / Av. Estácio Coimbra",
+    latitude: -7.845808898198077,
+    longitude: -35.25061524230756,
+    tipo: "Rede Semafórica"
+  }
 ]
 
 equipamentos.each do |dados|
