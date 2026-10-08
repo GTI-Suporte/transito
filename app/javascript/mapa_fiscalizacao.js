@@ -1,19 +1,45 @@
 const config = {
   "Lombada Eletrônica": {
     color: "#3b82f6",
-    icon: "fa-gauge-high"
+    icon: "fa-gauge-high",
+    label: "Lombada Eletrônica",
+    info: "Equipamento utilizado para controle e fiscalização eletrônica da velocidade dos veículos."
   },
 
   "Equipamento Misto": {
     color: "#f59e0b",
-    icon: "fa-video"
+    icon: "fa-video",
+    label: "Semáforo com Fiscalização Integrada",
+    info: "Semáforo equipado com câmera de fiscalização integrada, capaz de registrar avanço de sinal e parada sobre a faixa."
   },
 
   "Câmera Dome": {
     color: "#ef4444",
-    icon: "fa-camera"
+    icon: "fa-camera",
+    label: "Vídeo Monitoramento",
+    info: "Câmera utilizada para monitoramento visual do trânsito e apoio à fiscalização."
   }
 };
+
+function normalizeSearch(value) {
+  return String(value ?? "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+}
+
+function debounce(fn, delay = 100) {
+  let timer = null;
+
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
 
 let map = null;
 let markerCluster = null;
@@ -26,10 +52,19 @@ function initMap() {
     attributionControl: true
   }).setView([-8.05, -34.9], 9);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  subdomains: 'abcd', maxZoom: 20
-}).addTo(map);
+  L.tileLayer(
+    "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        '&copy; <a href="https://carto.com/attribution/">CARTO</a>',
+
+      maxZoom: 20,
+      maxNativeZoom: 20,
+      detectRetina: false,
+      keepBuffer: 3
+    }
+  ).addTo(map);
 
   L.control.zoom({
     position: "bottomright"
@@ -45,14 +80,16 @@ function initMap() {
 }
 
 async function loadData() {
-  const list = document.getElementById("results-list");
+  const list =
+    document.getElementById("results-list");
 
   try {
-    const response = await fetch("/api/equipamentos", {
-      headers: {
-        Accept: "application/json"
-      }
-    });
+    const response =
+      await fetch("/api/equipamentos", {
+        headers: {
+          Accept: "application/json"
+        }
+      });
 
     if (!response.ok) {
       throw new Error(
@@ -60,18 +97,41 @@ async function loadData() {
       );
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     trafficData = data
-      .filter((item) => item.type !== "Rede Semafórica")
-      .filter((item) => item.lat !== null && item.lng !== null)
-      .map((item) => ({
-        id: String(item.id),
-        address: item.address ?? "",
-        lat: Number(item.lat),
-        lng: Number(item.lng),
-        type: item.type ?? ""
-      }));
+      .filter(
+        (item) =>
+          item.type !== "Rede Semafórica"
+      )
+      .filter(
+        (item) =>
+          item.lat !== null &&
+          item.lng !== null
+      )
+      .map((item) => {
+        const type =
+          item.type ?? "";
+
+        const address =
+          item.address ?? "";
+
+        const label =
+          config[type]?.label ?? type;
+
+        return {
+          id: String(item.id),
+          address,
+          lat: Number(item.lat),
+          lng: Number(item.lng),
+          type,
+          label,
+          searchText: normalizeSearch(
+            `${item.id} ${address} ${type} ${label}`
+          )
+        };
+      });
 
     renderStats();
     renderFilters();
@@ -87,67 +147,113 @@ async function loadData() {
 }
 
 function renderStats() {
-  document.getElementById("total-count").innerText =
+  document.getElementById(
+    "total-count"
+  ).innerText =
     trafficData.length;
 
-  document.getElementById("lombada-count").innerText =
+  document.getElementById(
+    "lombada-count"
+  ).innerText =
     trafficData.filter(
-      (item) => item.type === "Lombada Eletrônica"
+      (item) =>
+        item.type ===
+        "Lombada Eletrônica"
     ).length;
 
-  document.getElementById("misto-count").innerText =
+  document.getElementById(
+    "misto-count"
+  ).innerText =
     trafficData.filter(
-      (item) => item.type === "Equipamento Misto"
+      (item) =>
+        item.type ===
+        "Equipamento Misto"
     ).length;
 
-  document.getElementById("dome-count").innerText =
+  document.getElementById(
+    "dome-count"
+  ).innerText =
     trafficData.filter(
-      (item) => item.type === "Câmera Dome"
+      (item) =>
+        item.type ===
+        "Câmera Dome"
     ).length;
 }
 
 function renderFilters() {
   const container =
-    document.getElementById("category-filters");
+    document.getElementById(
+      "category-filters"
+    );
 
   container.innerHTML = "";
 
-  Object.keys(config).forEach((type) => {
-    const count = trafficData.filter(
-      (item) => item.type === type
-    ).length;
+  Object.keys(config).forEach(
+    (type) => {
+      const meta =
+        config[type];
 
-    const div = document.createElement("div");
+      const count =
+        trafficData.filter(
+          (item) =>
+            item.type === type
+        ).length;
 
-    div.className = "filter-item has-count";
+      const div =
+        document.createElement(
+          "div"
+        );
 
-    div.innerHTML = `
-      <label>
-        <input
-          type="checkbox"
-          checked
-          value="${type}"
-        >
+      div.className =
+        "filter-item has-count";
 
-        <span
-          class="filter-badge"
-          style="background: ${config[type].color}">
-        </span>
+      div.innerHTML = `
+        <label>
+          <input
+            type="checkbox"
+            checked
+            value="${escapeHtml(type)}"
+          >
 
-        <span>${type}</span>
-      </label>
+          <span
+            class="filter-badge"
+            style="background: ${meta.color}">
+          </span>
 
-      <span class="filter-count">
-        ${count}
-      </span>
-    `;
+          <span>
+            ${escapeHtml(meta.label)}
+          </span>
+        </label>
 
-    div
-      .querySelector("input")
-      .addEventListener("change", filterData);
+        <div class="filter-actions">
 
-    container.appendChild(div);
-  });
+          <span class="filter-count">
+            ${count}
+          </span>
+
+          <button
+            type="button"
+            class="info-button"
+            data-info="${escapeHtml(meta.info)}"
+            aria-label="Informações sobre ${escapeHtml(meta.label)}">
+            i
+          </button>
+
+        </div>
+      `;
+
+      div
+        .querySelector("input")
+        .addEventListener(
+          "change",
+          filterData
+        );
+
+      container.appendChild(div);
+    }
+  );
+
+  setupInfoButtons();
 }
 
 function escapeHtml(value) {
@@ -159,55 +265,157 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+function setupInfoButtons() {
+  document
+    .querySelectorAll(
+      "#category-filters .info-button"
+    )
+    .forEach(
+      (button) => {
+        if (
+          button.dataset.infoBound ===
+          "true"
+        ) {
+          return;
+        }
+
+        button.dataset.infoBound =
+          "true";
+
+        button.addEventListener(
+          "click",
+          (event) => {
+            event.stopPropagation();
+
+            document
+              .querySelectorAll(
+                ".info-balloon"
+              )
+              .forEach(
+                (balloon) =>
+                  balloon.remove()
+              );
+
+            const balloon =
+              document.createElement(
+                "div"
+              );
+
+            balloon.className =
+              "info-balloon";
+
+            balloon.innerHTML = `
+              <strong>
+                Informação
+              </strong>
+
+              <p>
+                ${escapeHtml(
+                  button.dataset.info
+                )}
+              </p>
+            `;
+
+            button
+              .closest(".filter-item")
+              .appendChild(
+                balloon
+              );
+          }
+        );
+      }
+    );
+}
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (
+      !event.target.closest(
+        ".info-button"
+      ) &&
+      !event.target.closest(
+        ".info-balloon"
+      )
+    ) {
+      document
+        .querySelectorAll(
+          ".info-balloon"
+        )
+        .forEach(
+          (balloon) =>
+            balloon.remove()
+        );
+    }
+  }
+);
+
 function renderPoints(data) {
   markerCluster.clearLayers();
   allMarkers = [];
 
   data.forEach((item) => {
-    const conf = config[item.type] || {
-      color: "#64748b",
-      icon: "fa-location-dot"
-    };
+    const conf =
+      config[item.type] || {
+        color: "#64748b",
+        icon: "fa-location-dot",
+        label: item.type
+      };
 
-    const icon = L.divIcon({
-      html: `
-        <div style="
-          background: ${conf.color};
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          border: 2px solid white;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.25);
-          font-size: 13px;
-        ">
-          <i class="fas ${conf.icon}"></i>
-        </div>
-      `,
+    const icon =
+      L.divIcon({
+        html: `
+          <div style="
+            background: ${conf.color};
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+            font-size: 13px;
+          ">
+            <i class="fas ${conf.icon}"></i>
+          </div>
+        `,
 
-      className: "custom-div-icon",
-      iconSize: [30, 30],
-      iconAnchor: [15, 15]
-    });
+        className:
+          "custom-div-icon",
 
-    const marker = L.marker(
-      [item.lat, item.lng],
-      { icon }
-    );
+        iconSize: [30, 30],
 
-    const safeId = escapeHtml(item.id);
-    const safeAddress = escapeHtml(item.address);
-    const safeType = escapeHtml(item.type);
+        iconAnchor: [15, 15],
+
+        popupAnchor: [0, -15]
+      });
+
+    const marker =
+      L.marker(
+        [item.lat, item.lng],
+        { icon }
+      );
+
+    const safeId =
+      escapeHtml(item.id);
+
+    const safeAddress =
+      escapeHtml(item.address);
+
+    const safeType =
+      escapeHtml(conf.label);
 
     const popupContent = `
       <div
         class="popup-header"
         style="background: ${conf.color}">
+
         <i class="fas ${conf.icon}"></i>
+
         ${safeType}
+
       </div>
 
       <div class="popup-body">
@@ -237,6 +445,7 @@ function renderPoints(data) {
 
           <i class="fas fa-arrow-up-right-from-square"></i>
           Abrir no Google Maps
+
         </button>
 
       </div>
@@ -249,15 +458,23 @@ function renderPoints(data) {
       }
     );
 
-    marker.itemData = item;
+    marker.itemData =
+      item;
 
-    markerCluster.addLayer(marker);
-    allMarkers.push(marker);
+    markerCluster.addLayer(
+      marker
+    );
+
+    allMarkers.push(
+      marker
+    );
   });
 
   if (data.length > 0) {
     const group =
-      new L.featureGroup(allMarkers);
+      new L.featureGroup(
+        allMarkers
+      );
 
     map.fitBounds(
       group.getBounds().pad(0.1)
@@ -267,10 +484,14 @@ function renderPoints(data) {
 
 function renderList(data) {
   const list =
-    document.getElementById("results-list");
+    document.getElementById(
+      "results-list"
+    );
 
   const countLabel =
-    document.getElementById("results-count");
+    document.getElementById(
+      "results-count"
+    );
 
   list.innerHTML = "";
 
@@ -284,23 +505,26 @@ function renderList(data) {
     return;
   }
 
-  data
-    .slice(0, 100)
-    .forEach((item) => {
-
-      const conf = config[item.type] || {
-        color: "#64748b",
-        icon: "fa-location-dot"
-      };
+  data.forEach(
+    (item) => {
+      const conf =
+        config[item.type] || {
+          color: "#64748b",
+          icon: "fa-location-dot",
+          label: item.type
+        };
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       card.className =
         "result-card";
 
       card.innerHTML = `
-        <div class="result-card-header">
+        <div
+          class="result-card-header">
 
           <h4>
             ${escapeHtml(item.id)}
@@ -313,8 +537,11 @@ function renderList(data) {
               color: ${conf.color}
             ">
 
-            <i class="fas ${conf.icon}"></i>
-            ${escapeHtml(item.type)}
+            <i
+              class="fas ${conf.icon}">
+            </i>
+
+            ${escapeHtml(conf.label)}
 
           </span>
 
@@ -326,43 +553,33 @@ function renderList(data) {
       `;
 
       card.onclick = () => {
-
         const marker =
           allMarkers.find(
-            (marker) =>
-              marker.itemData.id === item.id
+            (currentMarker) =>
+              currentMarker.itemData.id ===
+              item.id
           );
 
         if (marker) {
-
           map.setView(
-            [item.lat, item.lng],
+            [
+              item.lat,
+              item.lng
+            ],
             17
           );
 
           setTimeout(
-            () => marker.openPopup(),
+            () =>
+              marker.openPopup(),
             200
           );
         }
       };
 
       list.appendChild(card);
-    });
-
-  if (data.length > 100) {
-
-    const more =
-      document.createElement("p");
-
-    more.style =
-      "text-align:center;font-size:.72rem;padding:8px;color:var(--text-muted);";
-
-    more.innerText =
-      `Exibindo 100 de ${data.length} resultados...`;
-
-    list.appendChild(more);
-  }
+    }
+  );
 }
 
 function filterData() {
@@ -372,60 +589,86 @@ function filterData() {
         "#category-filters input:checked"
       )
     ).map(
-      (input) => input.value
+      (input) =>
+        input.value
     );
 
   const searchTerm =
-    document
-      .getElementById("search-input")
-      .value
-      .toLowerCase()
-      .trim();
+    normalizeSearch(
+      document.getElementById(
+        "search-input"
+      )?.value
+    );
+
+  const searchTerms =
+    searchTerm
+      ? searchTerm
+          .split(/\s+/)
+          .filter(Boolean)
+      : [];
 
   const filtered =
-    trafficData.filter((item) => {
+    trafficData.filter(
+      (item) => {
+        const matchesType =
+          activeTypes.includes(
+            item.type
+          );
 
-      const matchesType =
-        activeTypes.includes(item.type);
+        const matchesSearch =
+          searchTerms.length === 0 ||
+          searchTerms.every(
+            (term) =>
+              item.searchText.includes(
+                term
+              )
+          );
 
-      const matchesSearch =
-        !searchTerm ||
-        item.address
-          .toLowerCase()
-          .includes(searchTerm) ||
-        item.id
-          .toLowerCase()
-          .includes(searchTerm);
-
-      return (
-        matchesType &&
-        matchesSearch
-      );
-    });
+        return (
+          matchesType &&
+          matchesSearch
+        );
+      }
+    );
 
   renderPoints(filtered);
   renderList(filtered);
 }
 
+const applyFiscalizacaoFilter =
+  debounce(
+    filterData,
+    100
+  );
+
 function bootMapaFiscalizacao() {
   const mapElement =
-    document.getElementById("map");
+    document.getElementById(
+      "map"
+    );
 
   if (
     !mapElement ||
-    mapElement.dataset.initialized === "true"
+    mapElement.dataset.initialized ===
+      "true"
   ) {
     return;
   }
 
-  mapElement.dataset.initialized = "true";
+  mapElement.dataset.initialized =
+    "true";
 
-  document
-    .getElementById("search-input")
-    .addEventListener(
-      "input",
-      filterData
+  const searchInput =
+    document.getElementById(
+      "search-input"
     );
+
+  if (searchInput) {
+    searchInput.addEventListener(
+      "input",
+      applyFiscalizacaoFilter
+    );
+  }
 
   initMap();
   loadData();
@@ -445,7 +688,6 @@ document.addEventListener(
 document.addEventListener(
   "turbo:before-cache",
   () => {
-
     if (map) {
       map.remove();
       map = null;
@@ -456,7 +698,9 @@ document.addEventListener(
     trafficData = [];
 
     const mapElement =
-      document.getElementById("map");
+      document.getElementById(
+        "map"
+      );
 
     if (mapElement) {
       delete mapElement.dataset.initialized;

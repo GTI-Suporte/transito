@@ -20,6 +20,26 @@ const SUBTIPO_CONFIG = {
   }
 };
 
+function normalizeSearch(value) {
+  return String(value ?? "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+}
+
+function debounce(fn, delay = 100) {
+  let timer = null;
+
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
+
 let map = null;
 let markerCluster = null;
 let allMarkers = [];
@@ -31,16 +51,19 @@ function initMap() {
     attributionControl: true
   }).setView([-8.05, -34.9], 9);
 
-  /*
-   * Mantenha aqui a mesma chave CARTO que você já está usando.
-   * Não compartilhe a chave publicamente.
-   */
-  const CARTO_API_KEY = "cb1_4d1n_1_5bb6f5807e5909740feda6f7";
+  L.tileLayer(
+    "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        '&copy; <a href="https://carto.com/attribution/">CARTO</a>',
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2o0n_1_c5818ab1a5c032068d0bbee4', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  subdomains: 'abcd', maxZoom: 20
-}).addTo(map);
+      maxZoom: 20,
+      maxNativeZoom: 20,
+      detectRetina: false,
+      keepBuffer: 3
+    }
+  ).addTo(map);
 
   L.control.zoom({
     position: "bottomright"
@@ -57,15 +80,21 @@ function initMap() {
 
 async function loadData() {
   const list =
-    document.getElementById("results-list");
+    document.getElementById(
+      "results-list"
+    );
 
   try {
     const response =
-      await fetch("/api/equipamentos", {
-        headers: {
-          Accept: "application/json"
+      await fetch(
+        "/api/equipamentos",
+        {
+          headers: {
+            Accept:
+              "application/json"
+          }
         }
-      });
+      );
 
     if (!response.ok) {
       throw new Error(
@@ -79,25 +108,47 @@ async function loadData() {
     trafficData = data
       .filter(
         (item) =>
-          item.type === "Rede Semafórica"
+          item.type ===
+          "Rede Semafórica"
       )
       .filter(
         (item) =>
           item.lat !== null &&
           item.lng !== null
       )
-      .map((item) => ({
-        id: String(item.id),
-        address: item.address ?? "",
-        lat: Number(item.lat),
-        lng: Number(item.lng),
-        type: item.type ?? "",
-        subtipo: item.subtipo_semaforo ?? ""
-      }));
+      .map((item) => {
+        const subtipo =
+          item.subtipo_semaforo ??
+          "";
+
+        const address =
+          item.address ?? "";
+
+        const id =
+          String(item.id);
+
+        return {
+          id,
+          address,
+          lat: Number(item.lat),
+          lng: Number(item.lng),
+          type:
+            item.type ?? "",
+          subtipo,
+          searchText:
+            normalizeSearch(
+              `${id} ${address} ${item.type ?? ""} ${subtipo} Semáforo`
+            )
+        };
+      });
 
     renderStats();
-    renderPoints(trafficData);
-    renderList(trafficData);
+    renderPoints(
+      trafficData
+    );
+    renderList(
+      trafficData
+    );
 
   } catch (error) {
     console.error(error);
@@ -114,52 +165,63 @@ function renderStats() {
   const analogico =
     trafficData.filter(
       (item) =>
-        item.subtipo === "Analógico"
+        item.subtipo ===
+        "Analógico"
     ).length;
 
   const digital =
     trafficData.filter(
       (item) =>
-        item.subtipo === "Digital"
+        item.subtipo ===
+        "Digital"
     ).length;
 
   const adaptativo =
     trafficData.filter(
       (item) =>
-        item.subtipo === "Adaptativo"
+        item.subtipo ===
+        "Adaptativo"
     ).length;
 
   document.getElementById(
     "semaforo-count"
-  ).innerText = total;
+  ).innerText =
+    total;
 
   document.getElementById(
     "analogico-count"
-  ).innerText = analogico;
+  ).innerText =
+    analogico;
 
   document.getElementById(
     "digital-count"
-  ).innerText = digital;
+  ).innerText =
+    digital;
 
   document.getElementById(
     "adaptativo-count"
-  ).innerText = adaptativo;
+  ).innerText =
+    adaptativo;
 
   document.getElementById(
     "semaforo-filter-count"
-  ).innerText = total;
+  ).innerText =
+    total;
 
   document.getElementById(
     "analogico-filter-count"
-  ).innerText = analogico;
+  ).innerText =
+    analogico;
 
   document.getElementById(
     "digital-filter-count"
-  ).innerText = digital;
+  ).innerText =
+    digital;
 
   document.getElementById(
     "adaptativo-filter-count"
-  ).innerText = adaptativo;
+  ).innerText =
+    adaptativo;
 }
 
 function escapeHtml(value) {
@@ -177,7 +239,9 @@ function renderPoints(data) {
 
   data.forEach((item) => {
     const conf =
-      SUBTIPO_CONFIG[item.subtipo] ||
+      SUBTIPO_CONFIG[
+      item.subtipo
+      ] ||
       SUBTIPO_CONFIG[""];
 
     const icon =
@@ -196,69 +260,111 @@ function renderPoints(data) {
             box-shadow: 0 4px 8px rgba(0,0,0,0.25);
             font-size: 13px;
           ">
-            <i class="fas ${conf.icon}"></i>
+            <i
+              class="fas ${conf.icon}">
+            </i>
           </div>
         `,
 
         className:
           "custom-div-icon",
 
-        iconSize: [30, 30],
+        iconSize: [
+          30,
+          30
+        ],
 
-        iconAnchor: [15, 15],
+        iconAnchor: [
+          15,
+          15
+        ],
 
-        popupAnchor: [0, -15]
+        popupAnchor: [
+          0,
+          -15
+        ]
       });
 
     const marker =
       L.marker(
-        [item.lat, item.lng],
-        { icon }
+        [
+          item.lat,
+          item.lng
+        ],
+        {
+          icon
+        }
       );
 
     const safeId =
-      escapeHtml(item.id);
+      escapeHtml(
+        item.id
+      );
 
     const safeAddress =
-      escapeHtml(item.address);
+      escapeHtml(
+        item.address
+      );
 
     const classificacao =
       item.subtipo ||
       "Ainda não classificada";
 
     const safeClassificacao =
-      escapeHtml(classificacao);
+      escapeHtml(
+        classificacao
+      );
 
     const popupContent = `
       <div
         class="popup-header"
         style="background: ${conf.color}">
 
-        <i class="fas ${conf.icon}"></i>
+        <i
+          class="fas ${conf.icon}">
+        </i>
 
-        Semáforo ${safeClassificacao}
+        Semáforo
+
       </div>
 
       <div class="popup-body">
 
         <p>
-          <strong>ID do Equipamento:</strong>
+          <strong>
+            ID do Equipamento:
+          </strong>
+
           ${safeId}
         </p>
 
         <p>
-          <strong>Endereço:</strong><br>
+          <strong>
+            Endereço:
+          </strong><br>
+
           ${safeAddress}
         </p>
 
         <p>
-          <strong>Coordenadas:</strong>
-          ${Number(item.lat).toFixed(5)},
-          ${Number(item.lng).toFixed(5)}
+          <strong>
+            Coordenadas:
+          </strong>
+
+          ${Number(
+      item.lat
+    ).toFixed(5)},
+
+          ${Number(
+      item.lng
+    ).toFixed(5)}
         </p>
 
         <p>
-          <strong>Classificação:</strong>
+          <strong>
+            Classificação:
+          </strong>
+
           ${safeClassificacao}
         </p>
 
@@ -269,8 +375,12 @@ function renderPoints(data) {
             '_blank'
           )">
 
-          <i class="fas fa-arrow-up-right-from-square"></i>
+          <i
+            class="fas fa-arrow-up-right-from-square">
+          </i>
+
           Abrir no Google Maps
+
         </button>
 
       </div>
@@ -279,7 +389,8 @@ function renderPoints(data) {
     marker.bindPopup(
       popupContent,
       {
-        maxWidth: 300
+        maxWidth:
+          300
       }
     );
 
@@ -290,7 +401,9 @@ function renderPoints(data) {
       marker
     );
 
-    allMarkers.push(marker);
+    allMarkers.push(
+      marker
+    );
   });
 
   if (data.length > 0) {
@@ -300,7 +413,9 @@ function renderPoints(data) {
       );
 
     map.fitBounds(
-      group.getBounds().pad(0.1)
+      group
+        .getBounds()
+        .pad(0.1)
     );
   }
 }
@@ -328,12 +443,12 @@ function renderList(data) {
     return;
   }
 
-  data
-    .slice(0, 100)
-    .forEach((item) => {
-
+  data.forEach(
+    (item) => {
       const conf =
-        SUBTIPO_CONFIG[item.subtipo] ||
+        SUBTIPO_CONFIG[
+        item.subtipo
+        ] ||
         SUBTIPO_CONFIG[""];
 
       const nomeTipo =
@@ -349,10 +464,13 @@ function renderList(data) {
         "result-card";
 
       card.innerHTML = `
-        <div class="result-card-header">
+        <div
+          class="result-card-header">
 
           <h4>
-            ${escapeHtml(item.id)}
+            ${escapeHtml(
+        item.id
+      )}
           </h4>
 
           <span
@@ -362,25 +480,32 @@ function renderList(data) {
               color: ${conf.color};
             ">
 
-            <i class="fas ${conf.icon}"></i>
+            <i
+              class="fas ${conf.icon}">
+            </i>
 
-            ${escapeHtml(nomeTipo)}
+            ${escapeHtml(
+        nomeTipo
+      )}
 
           </span>
 
         </div>
 
         <p>
-          ${escapeHtml(item.address)}
+          ${escapeHtml(
+        item.address
+      )}
         </p>
       `;
 
       card.onclick = () => {
-
         const marker =
           allMarkers.find(
-            (marker) =>
-              marker.itemData.id ===
+            (currentMarker) =>
+              currentMarker
+                .itemData
+                .id ===
               item.id
           );
 
@@ -404,24 +529,8 @@ function renderList(data) {
       list.appendChild(
         card
       );
-    });
-
-  if (data.length > 100) {
-    const more =
-      document.createElement(
-        "p"
-      );
-
-    more.style =
-      "text-align:center;font-size:.72rem;padding:8px;color:var(--text-muted);";
-
-    more.innerText =
-      `Exibindo 100 de ${data.length} resultados...`;
-
-    list.appendChild(
-      more
-    );
-  }
+    }
+  );
 }
 
 function filterData() {
@@ -431,13 +540,18 @@ function filterData() {
     ).checked;
 
   const searchTerm =
-    document
-      .getElementById(
+    normalizeSearch(
+      document.getElementById(
         "search-input"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+      )?.value
+    );
+
+  const searchTerms =
+    searchTerm
+      ? searchTerm
+        .split(/\s+/)
+        .filter(Boolean)
+      : [];
 
   const subtiposAtivos =
     Array.from(
@@ -455,19 +569,10 @@ function filterData() {
   const filtered =
     trafficData.filter(
       (item) => {
-
         if (!semaforoAtivo) {
           return false;
         }
 
-        /*
-         * Quando os três subtipos estão marcados,
-         * mostramos todos os semáforos, inclusive
-         * os ainda não classificados.
-         *
-         * Quando somente alguns estão marcados,
-         * mostramos apenas os classificados nesses tipos.
-         */
         const matchesSubtype =
           todosSubtiposAtivos
             ? true
@@ -476,17 +581,13 @@ function filterData() {
             );
 
         const matchesSearch =
-          !searchTerm ||
-          item.address
-            .toLowerCase()
-            .includes(
-              searchTerm
-            ) ||
-          item.id
-            .toLowerCase()
-            .includes(
-              searchTerm
-            );
+          searchTerms.length === 0 ||
+          searchTerms.every(
+            (term) =>
+              item.searchText.includes(
+                term
+              )
+          );
 
         return (
           matchesSubtype &&
@@ -504,6 +605,12 @@ function filterData() {
   );
 }
 
+const applySemaforoFilter =
+  debounce(
+    filterData,
+    100
+  );
+
 function setupInfoButtons() {
   document
     .querySelectorAll(
@@ -511,11 +618,19 @@ function setupInfoButtons() {
     )
     .forEach(
       (button) => {
+        if (
+          button.dataset.infoBound ===
+          "true"
+        ) {
+          return;
+        }
+
+        button.dataset.infoBound =
+          "true";
 
         button.addEventListener(
           "click",
           (event) => {
-
             event.stopPropagation();
 
             document
@@ -551,7 +666,7 @@ function setupInfoButtons() {
               .closest(
                 ".filter-subitem"
               )
-              .appendChild(
+              ?.appendChild(
                 balloon
               );
           }
@@ -563,7 +678,6 @@ function setupInfoButtons() {
 document.addEventListener(
   "click",
   (event) => {
-
     if (
       !event.target.closest(
         ".info-button"
@@ -572,7 +686,6 @@ document.addEventListener(
         ".info-balloon"
       )
     ) {
-
       document
         .querySelectorAll(
           ".info-balloon"
@@ -596,10 +709,13 @@ function setupFilters() {
       ".filter-subtipo"
     );
 
+  if (!mainFilter) {
+    return;
+  }
+
   mainFilter.addEventListener(
     "change",
     () => {
-
       subtypeFilters.forEach(
         (checkbox) => {
           checkbox.checked =
@@ -613,11 +729,9 @@ function setupFilters() {
 
   subtypeFilters.forEach(
     (checkbox) => {
-
       checkbox.addEventListener(
         "change",
         () => {
-
           const algumAtivo =
             Array.from(
               subtypeFilters
@@ -661,16 +775,13 @@ function bootMapaSemaforo() {
   if (searchInput) {
     searchInput.addEventListener(
       "input",
-      filterData
+      applySemaforoFilter
     );
   }
 
   setupFilters();
-
   setupInfoButtons();
-
   initMap();
-
   loadData();
 }
 
@@ -688,16 +799,15 @@ document.addEventListener(
 document.addEventListener(
   "turbo:before-cache",
   () => {
-
     if (map) {
       map.remove();
       map = null;
     }
 
-    markerCluster = null;
+    markerCluster =
+      null;
 
     allMarkers = [];
-
     trafficData = [];
 
     const mapElement =
