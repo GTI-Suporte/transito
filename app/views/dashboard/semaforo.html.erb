@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mapa de Semáforos - Pernambuco</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+</head>
+
+<body>
+
+  <div id="sidebar">
+
+    <div class="header">
+
+      <h1>
+        <i class="fas fa-traffic-light"></i>
+        Rede Semafórica
+      </h1>
+
+      <p>
+        Pernambuco — Gestão da Rede de Semáforos
+      </p>
+
+      <div class="map-switcher">
+
+        <%= link_to "Fiscalização",
+            mapa_fiscalizacao_path %>
+
+        <%= link_to "Semáforos",
+            mapa_semaforo_path,
+            class: "active" %>
+
+      </div>
+
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+    <div class="stats-container">
+
+      <!-- TOTAL DE SEMÁFOROS -->
+      <div class="stat-card">
+
+        <div class="stat-header">
+          <span>Semáforos</span>
+
+          <i
+            class="fas fa-traffic-light"
+            style="color: var(--accent-semaforo)">
+          </i>
+        </div>
+
+        <h3 id="semaforo-count">0</h3>
+
+      </div>
+
+      <!-- ANALÓGICOS -->
+      <div class="stat-card">
+
+        <div class="stat-header">
+          <span>Analógicos</span>
+
+          <i
+            class="fas fa-wave-square"
+            style="color: #0ea5e9">
+          </i>
+        </div>
+
+        <h3 id="analogico-count">0</h3>
+
+      </div>
+
+      <!-- DIGITAIS -->
+      <div class="stat-card">
+
+        <div class="stat-header">
+          <span>Digitais</span>
+
+          <i
+            class="fas fa-microchip"
+            style="color: #8b5cf6">
+          </i>
+        </div>
+
+        <h3 id="digital-count">0</h3>
+
+      </div>
+
+      <!-- ADAPTATIVOS -->
+      <div class="stat-card">
+
+        <div class="stat-header">
+          <span>Adaptativos</span>
+
+          <i
+            class="fas fa-arrows-to-circle"
+            style="color: #f59e0b">
+          </i>
+        </div>
+
+        <h3 id="adaptativo-count">0</h3>
+
+      </div>
+
+    </div>
+
+    <!-- PESQUISA -->
+    <div class="search-box">
+
+      <i class="fas fa-search search-icon"></i>
+
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Buscar por endereço ou ID..."
+      >
+
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filters">
+
+      <span class="filter-label">
+        Filtrar por Categoria
+      </span>
+
+      <div
+        class="filter-group"
+        id="category-filters">
+
+        <!-- SEMÁFORO -->
+        <div class="filter-item has-count">
+
+          <label>
+
+            <input
+              id="filter-semaforo"
+              type="checkbox"
+              checked
+            >
+
+            <span
+              class="filter-badge"
+              style="background: var(--accent-semaforo)">
+            </span>
+
+            <span>Semáforo</span>
+
+          </label>
+
+          <span
+            class="filter-count"
+            id="semaforo-filter-count">
+            0
+          </span>
+
+        </div>
+
+        <!-- SUBTIPOS -->
+        <div class="semaforo-subfilters">
+
+          <!-- ANALÓGICO -->
+          <div class="filter-subitem">
+
+            <div class="filter-subitem-main">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  class="filter-subtipo"
+                  data-subtipo="Analógico"
+                  checked
+                >
+
+                <span
+                  class="filter-badge"
+                  style="background:#0ea5e9">
+                </span>
+
+                <span>Analógico</span>
+
+              </label>
+
+              <span
+                class="filter-count"
+                id="analogico-filter-count">
+                0
+              </span>
+
+              <button
+                type="button"
+                class="info-button"
+                data-info="Semáforo com funcionamento baseado em controle e temporização convencional dos ciclos de sinalização.">
+                i
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- DIGITAL -->
+          <div class="filter-subitem">
+
+            <div class="filter-subitem-main">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  class="filter-subtipo"
+                  data-subtipo="Digital"
+                  checked
+                >
+
+                <span
+                  class="filter-badge"
+                  style="background:#8b5cf6">
+                </span>
+
+                <span>Digital</span>
+
+              </label>
+
+              <span
+                class="filter-count"
+                id="digital-filter-count">
+                0
+              </span>
+
+              <button
+                type="button"
+                class="info-button"
+                data-info="Semáforo controlado por equipamentos e sistemas digitais, permitindo configuração eletrônica dos ciclos de sinalização.">
+                i
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- ADAPTATIVO -->
+          <div class="filter-subitem">
+
+            <div class="filter-subitem-main">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  class="filter-subtipo"
+                  data-subtipo="Adaptativo"
+                  checked
+                >
+
+                <span
+                  class="filter-badge"
+                  style="background:#f59e0b">
+                </span>
+
+                <span>Adaptativo</span>
+
+              </label>
+
+              <span
+                class="filter-count"
+                id="adaptativo-filter-count">
+                0
+              </span>
+
+              <button
+                type="button"
+                class="info-button"
+                data-info="Semáforo preparado para utilizar estratégias de controle que podem ajustar os ciclos de acordo com as condições do trânsito.">
+                i
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="results-header">
+
+      <span>
+        Resultados
+      </span>
+
+      <span id="results-count">
+        0 itens
+      </span>
+
+    </div>
+
+    <div
+      class="results-list"
+      id="results-list">
+
+      <div class="loading">
+
+        <i class="fas fa-spinner fa-spin"></i>
+
+        Carregando semáforos...
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MAPA -->
+  <div id="map"></div>
+
+  <!-- LEAFLET -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+
+  <!-- MARKER CLUSTER -->
+  <script
+    src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js">
+  </script>
+
+  <!-- JS DO MAPA -->
+  <%= javascript_importmap_tags "mapa_semaforo" %>
+
+</body>
+</html>
