@@ -6,6 +6,13 @@ class Equipamento < ApplicationRecord
     "Rede Semafórica"
   ].freeze
 
+  TIPO_LABELS = {
+    "Lombada Eletrônica" => "Lombada Eletrônica",
+    "Equipamento Misto" => "Semáforo com Fiscalização Integrada",
+    "Câmera Dome" => "Vídeo Monitoramento",
+    "Rede Semafórica" => "Semáforo"
+  }.freeze
+
   SUBTIPOS_SEMAFORO = [
     "Analógico",
     "Digital",
@@ -14,9 +21,18 @@ class Equipamento < ApplicationRecord
 
   validates :identificacao, presence: true, uniqueness: true
   validates :endereco, presence: true
-  validates :latitude, numericality: { in: -90.0..90.0 }, allow_nil: true
-  validates :longitude, numericality: { in: -180.0..180.0 }, allow_nil: true
-  validates :tipo, presence: true, inclusion: { in: TIPOS }
+
+  validates :latitude,
+            numericality: { in: -90.0..90.0 },
+            allow_nil: true
+
+  validates :longitude,
+            numericality: { in: -180.0..180.0 },
+            allow_nil: true
+
+  validates :tipo,
+            presence: true,
+            inclusion: { in: TIPOS }
 
   validates :subtipo_semaforo,
             inclusion: { in: SUBTIPOS_SEMAFORO },
