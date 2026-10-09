@@ -385,6 +385,13 @@ equipamentos = [
     tipo: "Lombada Eletrônica"
   },
   {
+    identificacao: "DERPE1751",
+    endereco: "RODOVIA PE-060 – Km 63+000, sentido Recife, Tamandaré/PE",
+    latitude: -8.733122,
+    longitude: -35.173725,
+    tipo: "Lombada Eletrônica"
+  },
+  {
     identificacao: "DERPE1752",
     endereco: "RODOVIA PE-060 - Km 72+760",
     latitude: -8.806096,
@@ -424,6 +431,20 @@ equipamentos = [
     endereco: "RODOVIA PE-009 – Km 44+730",
     latitude: -8.396672,
     longitude: -35.011587,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE1758",
+    endereco: "RODOVIA PE-009 – Km 90+280, sentido Recife, Tamandaré/PE",
+    latitude: -8.699174,
+    longitude: -35.091936,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE1759",
+    endereco: "RODOVIA PE-009 – Km 89+730, sentido Centro de Tamandaré, Tamandaré/PE",
+    latitude: -8.69734,
+    longitude: -35.09665,
     tipo: "Lombada Eletrônica"
   },
   {
@@ -700,10 +721,45 @@ equipamentos = [
     tipo: "Lombada Eletrônica"
   },
   {
+    identificacao: "DERPE2019",
+    endereco: "RODOVIA BR-232 – Km 57+040, sentido Caruaru, Pombos/PE",
+    latitude: -8.14148,
+    longitude: -35.382585,
+    tipo: "Lombada Eletrônica"
+  },
+  {
     identificacao: "DERPE2020",
     endereco: "RODOVIA PE-005 - Km 19+940",
     latitude: -7.984037,
     longitude: -35.056845,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2021",
+    endereco: "RODOVIA PE-009 – Km 57+950, sentido Serrambi, Ipojuca/PE",
+    latitude: -8.49389,
+    longitude: -35.004173,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2022",
+    endereco: "RODOVIA PE-009 – Km 93+290, sentido Rio Formoso, Tamandaré/PE",
+    latitude: -8.721541,
+    longitude: -35.095193,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2023",
+    endereco: "RODOVIA PE-009 – Km 93+950, sentido Centro de Tamandaré, Tamandaré/PE",
+    latitude: -8.727494,
+    longitude: -35.095517,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2024",
+    endereco: "RODOVIA PE-009 – Km 94+190, sentido Recife, Tamandaré/PE",
+    latitude: -8.729543,
+    longitude: -35.095734,
     tipo: "Lombada Eletrônica"
   },
   {
@@ -728,6 +784,20 @@ equipamentos = [
     tipo: "Lombada Eletrônica"
   },
   {
+    identificacao: "DERPE2028",
+    endereco: "RODOVIA PE-060 – Km 84+650, sentido Alagoas, São José da Coroa Grande/PE",
+    latitude: -8.902644,
+    longitude: -35.151516,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2029",
+    endereco: "RODOVIA PE-050 – Km 30+280, sentido Limoeiro, Feira Nova/PE",
+    latitude: -7.937134,
+    longitude: -35.389853,
+    tipo: "Lombada Eletrônica"
+  },
+  {
     identificacao: "DERPE2030",
     endereco: "RODOVIA PE-090 - Km 105+230",
     latitude: -7.992119,
@@ -735,10 +805,24 @@ equipamentos = [
     tipo: "Lombada Eletrônica"
   },
   {
+    identificacao: "DERPE2031",
+    endereco: "RODOVIA PE-120 – Km 03+540, sentido Jaqueira, Catende/PE",
+    latitude: -8.667718,
+    longitude: -35.729892,
+    tipo: "Lombada Eletrônica"
+  },
+  {
     identificacao: "DERPE2032",
     endereco: "RODOVIA PE-218 - Km 32+640",
     latitude: -9.157193,
     longitude: -36.692216,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2033",
+    endereco: "RODOVIA PE-103 – Km 03+370, sentido Centro de Bezerros, Bezerros/PE",
+    latitude: -8.273956,
+    longitude: -35.747452,
     tipo: "Lombada Eletrônica"
   },
   {
@@ -753,6 +837,13 @@ equipamentos = [
     endereco: "RODOVIA PE-001 - Km 14+515",
     latitude: -7.953717,
     longitude: -34.829672,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2186",
+    endereco: "RODOVIA BR-232 – Km 19+600, sentido Recife, Moreno/PE",
+    latitude: -8.096997,
+    longitude: -35.068264,
     tipo: "Lombada Eletrônica"
   },
   {
@@ -774,6 +865,13 @@ equipamentos = [
     endereco: "RODOVIA BR-232 – km 128+520",
     latitude: -8.302893,
     longitude: -35.977883,
+    tipo: "Lombada Eletrônica"
+  },
+  {
+    identificacao: "DERPE2201",
+    endereco: "RODOVIA PE-050 – Km 30+410, sentido Glória do Goitá, Feira Nova/PE",
+    latitude: -7.93639,
+    longitude: -35.39083,
     tipo: "Lombada Eletrônica"
   },
   {
@@ -2720,6 +2818,34 @@ equipamentos = [
     endereco: "Rua Dom Lustosa - PE053 / Av. Estácio Coimbra",
     latitude: -7.845808898198077,
     longitude: -35.25061524230756,
+    tipo: "Rede Semafórica"
+  },
+    {
+    identificacao: "156",
+    endereco: "Rodovia PE-097, Avenida Prof. Agamenon Magalhães / Rua Carlos Gomes, Bezerros/PE",
+    latitude: -8.233483624092914,
+    longitude: -35.74415034992345,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "157",
+    endereco: "Rodovia PE-001, Avenida Dr. Cláudio J. Gueiros Leite / Rua José Geraldo Castro Paes, Paulista/PE",
+    latitude: -7.902008707070542,
+    longitude: -34.82655313678598,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "158",
+    endereco: "Rodovia PE-001, Avenida Dr. Cláudio J. Gueiros Leite / Rua S. Sebastião do Amaral, Paulista/PE",
+    latitude: -7.9115222711626325,
+    longitude: -34.82358854882051,
+    tipo: "Rede Semafórica"
+  },
+  {
+    identificacao: "159",
+    endereco: "Rodovia PE-001, Avenida Dr. Cláudio J. Gueiros Leite / Nossa Senhora da Conceição, Paulista/PE",
+    latitude: -7.8875469410396875,
+    longitude: -34.82673397797046,
     tipo: "Rede Semafórica"
   }
 ]
