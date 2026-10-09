@@ -36,18 +36,48 @@ body {
     overflow: hidden;
 }
 
-/* Sidebar */
+/* Sidebar: única área de rolagem */
 
 #sidebar {
     width: var(--sidebar-width);
     min-width: 0;
+    height: 100vh;
+    max-height: 100vh;
+
     background: var(--surface);
     border-right: 1px solid var(--border-color);
+
     display: flex;
     flex-direction: column;
+
     z-index: 1000;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.04);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #94a3b8 transparent;
 }
+
+#sidebar::-webkit-scrollbar {
+    width: 7px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Cabeçalho */
 
 .header {
     padding: 24px 20px 18px;
@@ -334,7 +364,7 @@ body {
     flex-shrink: 0;
 }
 
-/* Informações */
+/* Botões de informação */
 
 .info-button {
     width: 20px;
@@ -420,12 +450,12 @@ body {
     flex-shrink: 0;
 }
 
-/* Lista */
+/* Lista de resultados: sem rolagem independente */
 
 .results-list {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
     padding: 12px 20px;
     display: flex;
     flex-direction: column;
@@ -480,7 +510,7 @@ body {
     max-width: 65%;
 }
 
-/* Mapa */
+/* Área do mapa */
 
 #map {
     flex: 1;
@@ -490,7 +520,7 @@ body {
     background: #e2e8f0;
 }
 
-/* Popup */
+/* Popups do mapa */
 
 .leaflet-popup-content-wrapper {
     border-radius: var(--radius) !important;
@@ -553,26 +583,7 @@ body {
     background: var(--primary-light);
 }
 
-/* Scrollbar */
-
-.results-list::-webkit-scrollbar {
-    width: 5px;
-}
-
-.results-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.results-list::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
-}
-
-.results-list::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-/* Loading */
+/* Carregamento */
 
 .loading {
     text-align: center;
@@ -597,7 +608,8 @@ body {
         overflow: hidden;
     }
 
-    /* Mapa fica fixo na parte superior */
+    /* Mapa fixo na parte superior */
+
     #map {
         order: 1;
         width: 100%;
@@ -605,7 +617,8 @@ body {
         flex: 0 0 52dvh;
     }
 
-    /* Toda a barra lateral passa a ser rolável */
+    /* A lateral inteira é rolável */
+
     #sidebar {
         order: 2;
         width: 100%;
@@ -622,28 +635,7 @@ body {
 
         overflow-y: auto;
         overflow-x: hidden;
-
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: #94a3b8 transparent;
-    }
-
-    /* Barra de rolagem no Chrome/Edge */
-    #sidebar::-webkit-scrollbar {
-        width: 7px;
-    }
-
-    #sidebar::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    #sidebar::-webkit-scrollbar-thumb {
-        background: #94a3b8;
-        border-radius: 10px;
-    }
-
-    #sidebar::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
     }
 
     .header {
@@ -660,8 +652,7 @@ body {
 
     .stats-container {
         padding: 10px 12px;
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 7px;
     }
 
@@ -715,16 +706,12 @@ body {
         padding: 7px 12px;
     }
 
-    /*
-     * No celular, a lista deixa de ter uma segunda
-     * barra de rolagem. A rolagem fica somente
-     * no #sidebar.
-     */
+    /* A lista não cria uma segunda barra de rolagem */
+
     .results-list {
         flex: none;
         min-height: auto;
         overflow: visible;
-
         padding: 8px 12px 20px;
     }
 
@@ -775,8 +762,7 @@ body {
     }
 
     .stats-container {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .stat-card span {
